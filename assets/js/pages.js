@@ -95,7 +95,7 @@ export async function dashboardPage() {
         <div class="hero-object">
           <div id="hero3d" class="hero3d-mount" aria-hidden="true"></div>
           <div class="hero-object-readout">
-            <span class="hero-pct mono">${r}<small>%</small></span>
+            ${ring(r, 150, 'readiness')}
             <span class="dash-ring-label mono">readiness</span>
           </div>
         </div>

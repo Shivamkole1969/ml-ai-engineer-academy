@@ -383,7 +383,7 @@
 /* ---- hero living-object (3D) --------------------------------------------- */
 .hero-object { position:relative; width:clamp(200px,28vw,320px); aspect-ratio:1; display:grid; place-items:center; }
 .hero3d-mount { position:absolute; inset:0; display:grid; place-items:center; }
-.hero3d-mount canvas { filter:drop-shadow(0 8px 40px rgba(58,214,255,.25)); }
+.hero3d-mount canvas { filter:drop-shadow(0 0 36px rgba(58,214,255,.45)) drop-shadow(0 0 60px rgba(255,90,180,.25)); }
 .hero-object-readout { position:relative; z-index:2; display:flex; flex-direction:column; align-items:center; pointer-events:none; text-shadow:0 2px 16px rgba(4,8,22,.8); }
 .hero-pct { font-size:2.4rem; font-weight:600; color:var(--ink-100); line-height:1; }
 .hero-pct small { font-size:1rem; color:var(--ink-300); }

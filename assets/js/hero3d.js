@@ -57,14 +57,14 @@ void main(){
 
 const FRAG = `
 precision highp float;
-uniform vec3 uColorA; uniform vec3 uColorB; uniform float uGlow;
+uniform vec3 uColorA; uniform vec3 uColorB; uniform vec3 uColorC; uniform float uGlow;
 varying float vN; varying vec3 vNormalW; varying vec3 vViewW;
 void main(){
-  float fres = pow(1.0 - max(dot(normalize(vNormalW), normalize(vViewW)), 0.0), 2.4);
-  vec3 base = mix(uColorA, uColorB, smoothstep(-0.6, 0.6, vN));
-  vec3 col = base * (0.25 + 0.75*fres);          // glassy core, glowing rim
-  col += base * fres * uGlow;                      // bloom-able rim energy
-  float alpha = clamp(0.30 + fres*0.9, 0.0, 1.0);
+  float fres = pow(1.0 - max(dot(normalize(vNormalW), normalize(vViewW)), 0.0), 2.2);
+  vec3 base = mix(uColorA, uColorB, smoothstep(-0.7, 0.7, vN));
+  base = mix(base, uColorC, smoothstep(0.25, 0.9, fres) * 0.6);   // nebula rim
+  vec3 col = base * (0.9 + 1.7*fres) + base * fres * uGlow;
+  float alpha = clamp(0.72 + fres*0.28, 0.0, 1.0);
   gl_FragColor = vec4(col, alpha);
 }`;
 
@@ -110,7 +110,7 @@ export async function mountHero(el, opts = {}) {
 
   const scene = new THREE.Scene();
   const cam = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
-  cam.position.z = 4.2;
+  cam.position.z = 3.7;
 
   const accentA = hexToRGB(cssVar('--accent', '#3ad6ff'), [0.23, 0.84, 1.0]);
   const accentB = hexToRGB(cssVar('--accent-2', '#8b7bff'), [0.55, 0.48, 1.0]);
@@ -122,33 +122,19 @@ export async function mountHero(el, opts = {}) {
     uMouse: { value: new THREE.Vector2(0, 0) },
     uColorA: { value: new THREE.Vector3(...accentA) },
     uColorB: { value: new THREE.Vector3(...accentB) },
-    uGlow: { value: 0.8 + (readiness / 100) * 1.6 },   // more complete → brighter
+    uColorC: { value: new THREE.Vector3(...hexToRGB(cssVar('--nebula', '#ff5ab4'), [1.0, 0.35, 0.7])) },
+    uGlow: { value: 1.5 + (readiness / 100) * 1.6 },   // more complete → brighter
   };
   const geo = new THREE.IcosahedronGeometry(1.25, isMobile ? 12 : 24);
   const mat = new THREE.ShaderMaterial({
     uniforms, vertexShader: VERT, fragmentShader: FRAG,
-    transparent: true, depthWrite: false, blending: THREE.AdditiveBlending,
+    transparent: true, depthWrite: false,
   });
   const mesh = new THREE.Mesh(geo, mat);
   scene.add(mesh);
 
-  // a faint inner solid for body
-  const core = new THREE.Mesh(
-    new THREE.IcosahedronGeometry(1.05, 6),
-    new THREE.MeshBasicMaterial({ color: 0x0a1024, transparent: true, opacity: 0.5 })
-  );
-  scene.add(core);
-
-  // bloom
-  let composer = null;
-  try {
-    composer = new EffectComposer(renderer);
-    composer.setSize(W, H);
-    composer.addPass(new RenderPass(scene, cam));
-    const bloom = new UnrealBloomPass(new THREE.Vector2(W, H), isMobile ? 0.6 : 1.0, 0.6, 0.18);
-    composer.addPass(bloom);
-    composer.addPass(new OutputPass());
-  } catch (e) { composer = null; }
+  // render directly (reliable transparency); the CSS drop-shadow supplies the bloom glow.
+  const composer = null;
 
   // interaction
   let mx = 0, my = 0, tmx = 0, tmy = 0;
@@ -179,7 +165,6 @@ export async function mountHero(el, opts = {}) {
     mx += (tmx - mx) * 0.045; my += (tmy - my) * 0.045;   // heavy damping = weighty feel
     uniforms.uMouse.value.set(mx, my);
     mesh.rotation.y += 0.0016; mesh.rotation.x = my * 0.3; mesh.rotation.z = mx * 0.15;
-    core.rotation.copy(mesh.rotation);
     cam.position.x += (mx * 0.5 - cam.position.x) * 0.04;
     cam.position.y += (my * 0.5 - cam.position.y) * 0.04;
     cam.lookAt(0, 0, 0);
@@ -194,7 +179,7 @@ export async function mountHero(el, opts = {}) {
     removeEventListener('pointermove', onMove);
     removeEventListener('resize', onResize);
     if (ro) ro.disconnect();
-    geo.dispose(); mat.dispose(); core.geometry.dispose(); core.material.dispose();
+    geo.dispose(); mat.dispose();
     if (composer) composer.dispose?.();
     renderer.dispose();
     if (renderer.domElement.parentNode) renderer.domElement.parentNode.removeChild(renderer.domElement);

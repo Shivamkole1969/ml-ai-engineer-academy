@@ -9,7 +9,8 @@
    -------------------------------------------------------------------------- */
 :root {
   /* deep-space canvas */
-  --bg-900:#070b18;  --bg-800:#0b1226;  --bg-700:#111a33;
+  --bg-900:#05060f;  --bg-800:#0a0c1d;  --bg-700:#11152e;
+  --nebula:#ff5ab4;
   /* glass surfaces */
   --glass-bg:rgba(20,30,58,0.45);
   --glass-stroke:rgba(140,170,255,0.18);
@@ -18,7 +19,7 @@
   --ink-100:#eaf0ff; --ink-300:#aebbdf; --ink-500:#7e8cb8;
   /* ONE energetic accent: electric cyan -> violet */
   --accent:#3ad6ff; --accent-2:#8b7bff;
-  --accent-grad:linear-gradient(120deg,#3ad6ff,#8b7bff);
+  --accent-grad:linear-gradient(120deg,#3ad6ff,#8b7bff 55%,#ff5ab4);
   /* semantic */
   --hot:#ff7a59; --core:#3ad6ff; --foundation:#7e8cb8; --skim:#516089;
   --ok:#48e0a0; --warn:#ffd166; --bad:#ff6b8a;
@@ -61,8 +62,11 @@ body {
   line-height:1.65;
   color:var(--ink-100);
   background:
-    radial-gradient(1200px 800px at 75% -10%, rgba(58,214,255,0.08), transparent 60%),
-    radial-gradient(1000px 700px at 10% 110%, rgba(139,123,255,0.08), transparent 60%),
+    radial-gradient(1100px 780px at 78% -12%, rgba(58,214,255,0.10), transparent 58%),
+    radial-gradient(950px 720px at 10% 112%, rgba(139,123,255,0.14), transparent 58%),
+    radial-gradient(820px 680px at 52% 38%, rgba(255,90,180,0.07), transparent 60%),
+    radial-gradient(680px 560px at 92% 82%, rgba(72,224,160,0.05), transparent 60%),
+    radial-gradient(700px 600px at 4% 30%, rgba(120,80,255,0.08), transparent 62%),
     var(--bg-900);
   background-attachment:fixed;
   -webkit-font-smoothing:antialiased;

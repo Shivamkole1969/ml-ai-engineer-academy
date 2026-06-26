@@ -79,7 +79,7 @@ async function init() {
   geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
 
   const accent = readAccentColor() || 0x6fb6ff;
-  const mat = new THREE.PointsMaterial({ size: 0.022, color: accent, transparent: true, opacity: 0.5, depthWrite: false });
+  const mat = new THREE.PointsMaterial({ size: 0.03, color: accent, transparent: true, opacity: 0.72, depthWrite: false, sizeAttenuation: true });
   const points = new THREE.Points(geo, mat);
   scene.add(points);
 
