@@ -1,0 +1,300 @@
+{
+ "version": 1,
+ "terms": [
+  {
+   "term": "Activation Checkpointing",
+   "def": "A memory-saving technique that discards intermediate activations during the forward pass and recomputes them on demand during backpropagation. It trades roughly 30% extra compute for a dramatic reduction in peak GPU memory, enabling larger batch sizes or deeper models on the same hardware.",
+   "track": "Memory"
+  },
+  {
+   "term": "Agent Loop",
+   "track": "09-genai-rag",
+   "def": "The iterative reason-act-observe cycle in which an LLM selects a tool call, receives the result, and decides whether to call another tool or emit a final answer. Production reliability depends on termination guards, structured error handling, and cost/latency ceilings to prevent runaway chains from burning tokens or hanging indefinitely."
+  },
+  {
+   "term": "Amazon Bedrock",
+   "def": "AWS's fully managed service for accessing and fine-tuning foundation models (Claude, Llama, Titan, and others) via API, with no infrastructure to provision. Production teams use it for serverless LLM inference that inherits AWS security controls, VPC isolation, and pay-per-token pricing.",
+   "track": "Cloud"
+  },
+  {
+   "term": "ANN (Approximate Nearest Neighbor)",
+   "track": "09-genai-rag",
+   "def": "An algorithm that finds vectors 'close enough' to a query vector without scanning the entire index exhaustively, trading a small accuracy loss for sub-millisecond latency at billion-vector scale. Production systems typically use HNSW or IVF-PQ indexes baked into their vector databases."
+  },
+  {
+   "term": "Bootstrap Confidence Interval",
+   "def": "A range constructed from bootstrap resamples (typically the 2.5th and 97.5th percentiles of the resampled statistic) that contains the true metric value with a stated probability. It is used in A/B model comparisons to determine whether an observed metric lift is statistically meaningful before promoting a challenger model to production.",
+   "track": "data/stats"
+  },
+  {
+   "term": "Bootstrap Resampling",
+   "def": "A technique that repeatedly draws samples with replacement from an observed dataset to empirically estimate the sampling distribution of any statistic — no closed-form formula required. In production evaluation it provides confidence intervals for metrics such as AUC or RMSE on limited holdout sets where asymptotic normality cannot be assumed.",
+   "track": "data/stats"
+  },
+  {
+   "term": "Chunking",
+   "track": "09-genai-rag",
+   "def": "The process of splitting source documents into smaller, optionally overlapping passages before embedding and indexing. Chunk size and overlap are critical production knobs: too large dilutes relevance signal, too small loses surrounding context, and a badly placed split boundary can break a correct answer in half."
+  },
+  {
+   "term": "Concept Drift",
+   "def": "A change in the relationship between inputs and the target P(Y|X), meaning the correct prediction changes even when inputs look identical to training data — for example, customer churn patterns shifting after a pricing change. Detecting it requires ground-truth labels to flow back quickly enough to trigger retraining before business impact accumulates.",
+   "track": "data/stats"
+  },
+  {
+   "term": "Continuous Batching",
+   "def": "A scheduling strategy where the inference engine inserts new requests into an in-progress batch as soon as a slot frees up, rather than waiting for the entire batch to finish. This keeps GPU utilization near 100% under mixed-load traffic and is a core reason vLLM and similar engines achieve high throughput.",
+   "track": "LLM/Serving"
+  },
+  {
+   "term": "Covariate Drift",
+   "def": "A shift in the marginal distribution of input features P(X) between training time and serving time, so the model is scored on data it was never exposed to during training. It is one of the most common silent killers of production model performance and is the primary reason feature distribution monitoring is built into ML pipelines.",
+   "track": "data/stats"
+  },
+  {
+   "term": "CRAG / Self-RAG",
+   "track": "09-genai-rag",
+   "def": "Corrective RAG (CRAG) adds a retrieval evaluator that decides whether returned documents are trustworthy and falls back to a web search if they are not; Self-RAG trains the LLM to emit special critique tokens inline as it generates. Both make retrieval conditional rather than always-on, cutting hallucinations in production without changing the base retriever."
+  },
+  {
+   "term": "Data Leakage",
+   "def": "When information from outside the legitimate training boundary — such as features derived from future data or from the target itself — bleeds into model training, producing inflated offline metrics that collapse in production. Catching it early prevents the painful post-deployment discovery that a model never actually learned the signal it appeared to.",
+   "track": "data/stats"
+  },
+  {
+   "term": "Decode Phase",
+   "def": "The autoregressive loop that generates one output token per forward pass after the prefill is complete. Decode is memory-bandwidth-bound (reading the full KV cache each step) and its per-step speed is what TPOT measures.",
+   "track": "LLM/Serving"
+  },
+  {
+   "term": "DPO (Direct Preference Optimization)",
+   "def": "A fine-tuning objective that trains directly on (chosen, rejected) response pairs to steer a model toward preferred outputs — without needing a separate reward model or reinforcement learning loop. Production teams favor DPO over full RLHF because it is stable, single-stage, and far cheaper to run.",
+   "track": "Fine-tuning"
+  },
+  {
+   "term": "ECE (Expected Calibration Error)",
+   "def": "A scalar calibration metric computed by binning predictions into equal-width probability buckets and averaging the absolute gap between the mean predicted score and the mean actual outcome per bucket. Low ECE is especially critical in high-stakes production systems (credit, medical, insurance) where score magnitudes directly drive decisions.",
+   "track": "data/stats"
+  },
+  {
+   "term": "Embeddings",
+   "track": "09-genai-rag",
+   "def": "Dense numerical vectors that encode the semantic meaning of text (or images, code, etc.) so that similar content lands close together in vector space. In production, embedding model choice — general-purpose vs. domain-adapted — is often the single biggest lever on RAG retrieval accuracy."
+  },
+  {
+   "term": "Feature Drift Monitoring",
+   "def": "The practice of tracking per-feature distributional statistics — using metrics like PSI, KS, or mean/variance shifts — against a training-time baseline on a scheduled cadence in production. It enables targeted root-cause analysis, distinguishing between an upstream data pipeline failure, a genuine population shift, and a signal that has simply become stale.",
+   "track": "data/stats"
+  },
+  {
+   "term": "Feature Store",
+   "def": "A centralized system that computes, stores, and serves ML features consistently for both offline training and low-latency online inference. It directly solves training-serving skew — the bug where a feature computed differently at training vs. serving time silently degrades model accuracy in production.",
+   "track": "MLOps"
+  },
+  {
+   "term": "FlashAttention",
+   "def": "A hardware-aware attention algorithm that tiles the attention computation to stay within fast GPU SRAM, avoiding slow HBM reads of the full N×N attention matrix. It reduces attention memory from O(N²) to O(N) and is now the default attention kernel in most production stacks, enabling practical long-context training.",
+   "track": "Optimization"
+  },
+  {
+   "term": "Forward Pass",
+   "def": "The computation where input data flows through the model layer by layer to produce a prediction or loss value. Optimizing the forward pass — via operator fusion, FlashAttention, or torch.compile — directly cuts per-step wall time in production training loops.",
+   "track": "Core ML"
+  },
+  {
+   "term": "FSDP (Fully Sharded Data Parallel)",
+   "def": "A data-parallelism strategy that shards model parameters, gradients, and optimizer state across all GPUs, all-gathering each shard only when a layer needs it. PyTorch's native FSDP2 is the production standard for training models whose parameters exceed a single device's VRAM.",
+   "track": "Parallelism"
+  },
+  {
+   "term": "Google Vertex AI",
+   "def": "Google Cloud's end-to-end MLOps platform covering dataset management, distributed training, fine-tuning, model serving, and evaluation — plus a Model Garden for accessing Gemini and open-source models. Its managed pipelines let production teams automate the full train-evaluate-deploy loop with built-in monitoring and autoscaling.",
+   "track": "Cloud"
+  },
+  {
+   "term": "Gradient",
+   "def": "A vector that measures how much each model parameter contributed to the loss, used by the optimizer to update weights. Gradients are among the most memory-intensive artifacts during training, motivating sharding (FSDP/ZeRO), accumulation, and clipping strategies.",
+   "track": "Core ML"
+  },
+  {
+   "term": "Gradient Accumulation",
+   "def": "Simulating a large effective batch size by summing gradients over several smaller micro-batches before performing a single optimizer step. It lets practitioners match large-batch training dynamics without proportionally more GPU memory, which matters when VRAM is the bottleneck.",
+   "track": "Memory"
+  },
+  {
+   "term": "GraphRAG",
+   "track": "09-genai-rag",
+   "def": "A RAG variant that indexes documents as a knowledge graph of entities and relationships rather than flat chunks, enabling multi-hop reasoning across connected facts. In production it outperforms dense retrieval on queries that require synthesizing information from multiple scattered documents or traversing named relationships."
+  },
+  {
+   "term": "Grouped-Query Attention (GQA)",
+   "def": "A middle ground between standard multi-head attention and MQA: queries are divided into groups that each share one key/value head. Models like LLaMA 3 and Mistral use GQA to keep generation throughput high without the quality loss of full MQA.",
+   "track": "LLM/Serving"
+  },
+  {
+   "term": "Hybrid Search",
+   "track": "09-genai-rag",
+   "def": "Combining dense (embedding-based) and sparse (BM25/keyword) retrieval results — typically fused with Reciprocal Rank Fusion — to cover both semantic and exact-match cases. In production it rescues recall for domain-specific jargon, acronyms, and proper nouns that embeddings handle poorly on their own."
+  },
+  {
+   "term": "KS Test (Kolmogorov-Smirnov Test)",
+   "def": "A non-parametric statistical test that measures the maximum absolute difference between two empirical cumulative distribution functions to determine whether they are drawn from the same distribution. In production monitoring it flags per-feature or score-level drift without requiring assumptions about the underlying distribution shape, making it broadly applicable across feature types.",
+   "track": "data/stats"
+  },
+  {
+   "term": "KV Cache",
+   "def": "A memory buffer that stores the computed key and value tensors for each token in the prompt so they do not need to be recomputed during generation. Reusing the KV cache turns each decode step from an O(n²) recompute into a cheap O(1) lookup, which is the primary reason autoregressive generation is practical at all.",
+   "track": "LLM/Serving"
+  },
+  {
+   "term": "Label Drift (Prior Probability Shift)",
+   "def": "A change in the marginal distribution of the target variable P(Y), such as a spike in the fraud rate or a sudden class imbalance shift, independent of any change in features. Decision thresholds and score cutoffs calibrated at training time become stale and require recalibration or adjustment in production.",
+   "track": "data/stats"
+  },
+  {
+   "term": "LoRA (Low-Rank Adaptation)",
+   "def": "A fine-tuning technique that freezes the base model and injects small trainable rank-decomposition matrices at key layers, updating a fraction of the total parameters. In production it lets teams adapt a single large model to many tasks cheaply — one base model, many lightweight adapters swapped at serving time.",
+   "track": "Fine-tuning"
+  },
+  {
+   "term": "MCP (Model Context Protocol)",
+   "track": "09-genai-rag",
+   "def": "An open standard that lets LLM agents call external tools, APIs, and data sources through a uniform interface defined as typed JSON schemas. In production it decouples tool definitions from model code, so new capabilities (databases, web search, code execution) can be added without redeploying the agent."
+  },
+  {
+   "term": "Mixed Precision (BF16 / FP16)",
+   "def": "Training with 16-bit floats for most operations while keeping a 32-bit master copy of weights for numerically stable optimizer updates. This roughly halves GPU memory footprint and doubles throughput on modern accelerators, making it the default for large-model training runs.",
+   "track": "Precision"
+  },
+  {
+   "term": "MLflow",
+   "def": "An open-source platform that tracks experiments (parameters, metrics, artifacts), packages models in a portable format, and provides a model registry with versioning and stage transitions. In production it serves as the audit trail and handoff point between data scientists and deployment pipelines.",
+   "track": "MLOps"
+  },
+  {
+   "term": "Model Calibration",
+   "def": "A model is calibrated when its predicted probability scores match observed frequencies — a score of 0.8 should mean the event occurs roughly 80% of the time. Miscalibrated models break any downstream system that treats scores as probabilities, including risk scoring, expected-value calculations, and threshold-based alerts.",
+   "track": "data/stats"
+  },
+  {
+   "term": "Model Registry",
+   "def": "A versioned catalog that stores trained model artifacts alongside metadata such as training data lineage, evaluation metrics, and approval status. In production it acts as the governance gate between experimentation and deployment, enabling controlled rollouts and instant rollbacks.",
+   "track": "MLOps"
+  },
+  {
+   "term": "Multi-Query Attention (MQA)",
+   "def": "A variant of attention where all query heads share a single key/value head, dramatically shrinking the KV cache footprint. In production this reduces GPU memory pressure and allows larger batch sizes, at a small quality trade-off.",
+   "track": "LLM/Serving"
+  },
+  {
+   "term": "PagedAttention",
+   "def": "An algorithm (introduced by the vLLM project) that manages the KV cache in fixed-size, non-contiguous memory pages — similar to virtual memory paging in operating systems. This eliminates the internal fragmentation that wastes 60-80% of GPU memory in naive KV cache implementations, enabling far higher request concurrency on the same hardware.",
+   "track": "LLM/Serving"
+  },
+  {
+   "term": "PEFT (Parameter-Efficient Fine-Tuning)",
+   "def": "An umbrella family of methods — including LoRA, prefix tuning, and prompt tuning — that update only a tiny slice of model weights rather than the full parameter set. It matters in production because it makes custom model adaptation affordable without dedicated GPU clusters.",
+   "track": "Fine-tuning"
+  },
+  {
+   "term": "Pipeline Parallelism (PP)",
+   "def": "Divides model layers into sequential 'stages,' each assigned to a different GPU or node, and feeds micro-batches through the pipeline to keep all stages busy. It handles models too deep to fit on one node but requires careful micro-batch scheduling to minimize idle 'bubble' time.",
+   "track": "Parallelism"
+  },
+  {
+   "term": "PR-AUC (Precision-Recall Area Under Curve)",
+   "def": "The area under the precision-recall curve, summarizing classifier performance across all decision thresholds with emphasis on the positive class. It is preferred over ROC-AUC on severely imbalanced production datasets — such as fraud detection or rare-event alerting — because it is not inflated by the large number of true negatives.",
+   "track": "data/stats"
+  },
+  {
+   "term": "Prefill Phase",
+   "def": "The initial forward pass that processes the entire input prompt in parallel to populate the KV cache. Prefill is compute-bound and happens once per request; its duration is the dominant factor in Time to First Token (TTFT) for long prompts.",
+   "track": "LLM/Serving"
+  },
+  {
+   "term": "PSI (Population Stability Index)",
+   "def": "A divergence metric that bins a feature or score distribution into fixed buckets and measures how much that distribution has shifted from a reference period, using a symmetric KL-divergence-style formula. A PSI above 0.2 is the conventional production alert threshold, signalling that a model's input or output distribution has drifted enough to warrant investigation or retraining.",
+   "track": "data/stats"
+  },
+  {
+   "term": "QLoRA (Quantized LoRA)",
+   "def": "Extends LoRA by first compressing the frozen base model to 4-bit precision, then training LoRA adapters on top — enabling fine-tuning of 7B–70B models on a single consumer GPU. Production teams use it to cut VRAM requirements by 3–4x with minimal accuracy loss.",
+   "track": "Fine-tuning"
+  },
+  {
+   "term": "Quantization",
+   "def": "Converting model weights (and optionally activations) from 16/32-bit floats to lower-bit integers — INT8, INT4, NF4 — to shrink model size and accelerate inference. Post-training quantization (PTQ) via GPTQ or bitsandbytes is the primary technique for serving large models on commodity GPUs.",
+   "track": "Precision"
+  },
+  {
+   "term": "RAGAS",
+   "track": "09-genai-rag",
+   "def": "An open-source evaluation framework that scores RAG pipelines on faithfulness, answer relevance, context precision, and context recall using LLM-as-judge metrics. It gives teams a repeatable benchmark to detect regressions when swapping embedding models, chunk sizes, or retrievers before shipping changes to production."
+  },
+  {
+   "term": "Reranking",
+   "track": "09-genai-rag",
+   "def": "A second-pass scoring step that takes the top-k ANN candidates and re-scores them with a heavier cross-encoder model that jointly reads the query and each passage. In production it dramatically improves precision at minimal added cost because it operates on a small candidate set rather than the full index."
+  },
+  {
+   "term": "Retrieval Budget / Context Window Management",
+   "track": "09-genai-rag",
+   "def": "The discipline of fitting retrieved chunks within the model's context limit while maximizing coverage and relevance, using reranking, chunk compression, or map-reduce patterns. In production this is essential for cost control and to avoid the 'lost-in-the-middle' effect where LLMs systematically ignore facts placed in the center of a long prompt."
+  },
+  {
+   "term": "RLHF (Reinforcement Learning from Human Feedback)",
+   "def": "A two-stage alignment pipeline: first train a reward model from human preference rankings, then optimize the LLM against that reward via PPO (a reinforcement learning algorithm). It achieves strong alignment quality but demands significant infrastructure — reward model hosting, rollout generation, and careful reward hacking guardrails — making it expensive at production scale.",
+   "track": "Fine-tuning"
+  },
+  {
+   "term": "SFT (Supervised Fine-Tuning)",
+   "def": "The first alignment stage: continuing pre-training on curated (prompt, ideal-response) pairs to teach a model a desired format, domain, or behavior. In production pipelines SFT anchors the model before any preference-based tuning and is the fastest path from base model to task-specific deployment.",
+   "track": "Fine-tuning"
+  },
+  {
+   "term": "Snowflake Cortex",
+   "def": "Snowflake's suite of LLM-powered SQL functions (COMPLETE, SUMMARIZE, TRANSLATE, CLASSIFY, and more) that execute directly inside the data warehouse without moving data out. In production it collapses the data-to-inference gap for common NLP tasks, keeping governance, lineage, and access controls intact.",
+   "track": "Cloud"
+  },
+  {
+   "term": "Tensor Parallelism (TP)",
+   "def": "Splits individual weight matrices across GPUs within a node so each device computes a column or row slice of every matrix multiply. It adds an all-reduce on every layer but allows very wide models (large hidden dimensions) to fit and run fast across NVLink-connected GPUs.",
+   "track": "Parallelism"
+  },
+  {
+   "term": "Time Per Output Token (TPOT)",
+   "def": "The average time to generate each successive token after the first, often expressed as milliseconds per token or its inverse (tokens per second). TPOT governs how fast streamed text appears to the user; it is determined by GPU memory bandwidth and batch size during the decode phase.",
+   "track": "LLM/Serving"
+  },
+  {
+   "term": "Time to First Token (TTFT)",
+   "def": "The wall-clock time from sending a request until the first output token arrives at the client. TTFT is the primary latency metric for interactive applications — a high TTFT makes the interface feel sluggish even if overall throughput is excellent.",
+   "track": "LLM/Serving"
+  },
+  {
+   "term": "Tokenization",
+   "def": "The process of splitting raw text into integer IDs (tokens) that a model can process — typically using byte-pair encoding so a token averages ~3-4 characters. In production, token count directly drives cost and latency, since pricing and context-window limits are both measured in tokens, not words.",
+   "track": "LLM/Serving"
+  },
+  {
+   "term": "torch.compile",
+   "def": "PyTorch's JIT compilation API (backed by TorchDynamo + Inductor) that traces Python/PyTorch code and emits fused, optimized GPU kernels. A single torch.compile(model) call commonly yields 1.5–2× throughput improvements in both training and inference with no model-code changes.",
+   "track": "Optimization"
+  },
+  {
+   "term": "Vector Database",
+   "track": "09-genai-rag",
+   "def": "A storage and search engine purpose-built for high-dimensional embedding vectors, combining ANN indexing with metadata filtering and CRUD semantics. In production it decouples the knowledge store from the LLM, enabling independent scaling, incremental updates, and multi-tenant isolation."
+  },
+  {
+   "term": "vLLM",
+   "def": "An open-source LLM inference engine that combines PagedAttention, continuous batching, and optimized CUDA kernels into a production-ready serving framework. It is one of the most widely deployed self-hosted inference stacks because it typically achieves 10-20x higher throughput than naive HuggingFace generate() calls under concurrent load.",
+   "track": "LLM/Serving"
+  },
+  {
+   "term": "ZeRO (Zero Redundancy Optimizer)",
+   "def": "DeepSpeed's optimizer-state sharding family (Stage 1/2/3) that progressively eliminates redundant copies of optimizer state, gradients, and parameters across data-parallel ranks. Stage 3 achieves the same sharding depth as FSDP and is the go-to for multi-node DeepSpeed-based training stacks.",
+   "track": "Parallelism"
+  }
+ ]
+}

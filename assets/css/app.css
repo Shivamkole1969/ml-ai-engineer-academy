@@ -267,4 +267,30 @@
 .set-row { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:8px 0; color:var(--ink-300); }
 .set-note { font-size:.72rem; color:var(--ink-500); margin:10px 0; }
 
+/* ---- interview mode ------------------------------------------------------ */
+.iv-tabs { display:flex; gap:8px; flex-wrap:wrap; margin-top:14px; }
+.iv-tab.is-active { background:var(--accent-grad); color:#06101f; border-color:transparent; }
+.iv-filters { display:flex; gap:10px; margin-top:10px; }
+.iv-filters select, .gloss-search { padding:.4em .6em; border-radius:8px; color:var(--ink-100); background:var(--bg-800); border:1px solid var(--glass-stroke); font-family:var(--font-mono); font-size:.82rem; }
+.gloss-search { width:100%; margin-top:10px; }
+.faq-list { display:flex; flex-direction:column; gap:10px; }
+.faq-item { padding:0; }
+.faq-item.is-known { opacity:.7; border-color:color-mix(in srgb,var(--ok) 30%,var(--glass-stroke)); }
+.faq-item summary { cursor:pointer; padding:14px 18px; display:flex; justify-content:space-between; gap:12px; align-items:flex-start; list-style:none; }
+.faq-item summary::-webkit-details-marker { display:none; }
+.faq-q { color:var(--ink-100); font-weight:500; }
+.faq-tags { font-size:.7rem; color:var(--ink-500); white-space:nowrap; }
+.faq-a { padding:0 18px 14px; color:var(--ink-300); }
+.faq-actions { display:flex; gap:8px; padding:0 18px 14px; }
+
+.flashcard { display:flex; flex-direction:column; gap:18px; align-items:center; justify-content:center; }
+.fc-face { font-size:1.2rem; color:var(--ink-100); line-height:1.5; }
+.fc-rate { display:flex; gap:8px; flex-wrap:wrap; justify-content:center; }
+
+/* ---- glossary ------------------------------------------------------------ */
+.gloss-list { display:flex; flex-direction:column; gap:10px; }
+.gloss-item { padding:14px 18px; display:flex; flex-direction:column; gap:4px; }
+.gloss-term { font-family:var(--font-display); font-weight:600; color:var(--accent); }
+.gloss-def { color:var(--ink-300); font-size:.92rem; }
+
 /* ---- toast host already styled inline in gamify.js ----------------------- */

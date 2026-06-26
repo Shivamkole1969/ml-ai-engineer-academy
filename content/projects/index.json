@@ -1,0 +1,8 @@
+{
+  "intro": "Portfolio beats certificates in this market. Three deployed projects move interviews most — an end-to-end ML pipeline, a RAG app, and an MLOps deployment. Each guide below maps to a real résumé claim so you can speak to it truthfully and deeply.",
+  "projects": [
+    { "id": "churn-pipeline", "title": "End-to-end ML pipeline (churn)", "badge": "CORE", "blurb": "Customer-retention/churn with XGBoost: data → features → train → eval (PR-AUC, calibration) → FastAPI serve → MLflow → Docker.", "maps": "Chat-with-SQL + churn project" },
+    { "id": "rag-research-assistant", "title": "Production RAG app (research Q&A)", "badge": "HOT", "blurb": "Equity/broker-research Q&A with citations + CRAG/Agentic loop: chunking, FAISS/Chroma, rerank, RAGAS eval, Streamlit/Gradio, deploy on HF Space.", "maps": "Financial Analysis Assistant (Agentic + Corrective RAG), Estimates Extractor" },
+    { "id": "mlops-deployment", "title": "MLOps deployment", "badge": "HOT", "blurb": "Containerized model + monitoring (drift, latency p99, token spend) + canary/rollback notes.", "maps": "AWS SageMaker/Bedrock claims" }
+  ]
+}

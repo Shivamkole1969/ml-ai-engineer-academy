@@ -8,6 +8,7 @@ import { route, setNotFound, startRouter, navigate, setOnNavigate } from './rout
 import { registerDocs, initPaletteHotkey, openPalette } from './search.js';
 import { xpSummary } from './gamify.js';
 import * as pages from './pages.js';
+import * as extra from './pages-extra.js';
 import { badgePill } from './components.js';
 
 /* ---- prefs --------------------------------------------------------------- */
@@ -159,12 +160,14 @@ function registerRoutes() {
   route('#/', pages.dashboardPage);
   route('#/track/:trackId', pages.trackPage);
   route('#/lesson/:id', pages.lessonPage);
-  route('#/system-design', pages.comingSoon('ML/AI System Design', 'A framework for answering design questions + 10 architecture deep-dives with SVG diagrams. Landing in Phase 4.'));
-  route('#/system-design/:archId', pages.comingSoon('System Design — architecture', 'This architecture deep-dive is being authored (Phase 4).'));
-  route('#/interview', pages.comingSoon('Interview Mode', 'FAQ-100, spaced-repetition flashcards, and a mock drill with Pune/remote-India tips. Landing in Phase 5.'));
-  route('#/projects', pages.comingSoon('Projects & Portfolio', 'Three flagship, step-by-step build guides mapped to real résumé claims. Landing in Phase 5.'));
-  route('#/glossary', pages.comingSoon('Glossary', 'Quick term lookup across the whole curriculum. Landing in Phase 5.'));
-  route('#/playground', pages.comingSoon('Playground', 'An index of the interactive instrument widgets.'));
+  route('#/cheatsheet', extra.cheatsheetPage);
+  route('#/system-design', extra.systemDesignIndex);
+  route('#/system-design/:archId', extra.systemDesignArch);
+  route('#/interview', extra.interviewPage);
+  route('#/projects', extra.projectsIndex);
+  route('#/project/:id', extra.projectPage);
+  route('#/glossary', extra.glossaryPage);
+  route('#/playground', extra.playgroundPage);
   setNotFound(pages.comingSoon('Lost in space', 'That route does not exist yet. Head back to the dashboard.'));
 
   setOnNavigate((hash) => {
@@ -186,6 +189,23 @@ function registerSearch(curriculum) {
   registerDocs(docs);
 }
 
+/** Fetch + index system-design archs, projects, glossary terms, FAQ (non-blocking). */
+async function registerExtraSearch() {
+  const tryJSON = async (p) => { try { return await (await fetch(p)).json(); } catch (e) { return null; } };
+  const [sd, pj, gl, fq] = await Promise.all([
+    tryJSON('./content/system-design/index.json'),
+    tryJSON('./content/projects/index.json'),
+    tryJSON('./content/glossary.json'),
+    tryJSON('./content/faq/faq-100.json'),
+  ]);
+  const docs = [];
+  sd?.architectures?.forEach((a) => docs.push({ id: 'sd:' + a.id, title: a.title, sub: a.blurb, route: '#/system-design/' + a.id, body: '', kind: 'design' }));
+  pj?.projects?.forEach((p) => docs.push({ id: 'pj:' + p.id, title: p.title, sub: p.blurb, route: '#/project/' + p.id, body: p.maps || '', kind: 'section' }));
+  gl?.terms?.forEach((t) => docs.push({ id: 'gl:' + t.term, title: t.term, sub: 'Glossary', route: '#/glossary', body: t.def, kind: 'glossary' }));
+  fq?.questions?.forEach((q) => docs.push({ id: 'fq:' + q.id, title: q.q, sub: 'FAQ', route: '#/interview', body: q.a, kind: 'faq' }));
+  if (docs.length) registerDocs(docs);
+}
+
 /* ---- boot ---------------------------------------------------------------- */
 async function boot() {
   applyPrefs();
@@ -193,6 +213,7 @@ async function boot() {
   const curriculum = await pages.loadCurriculum();
   buildSidebar(curriculum);
   registerSearch(curriculum);
+  registerExtraSearch();
   registerRoutes();
   initPaletteHotkey();
   syncTopbar();

@@ -1,0 +1,28 @@
+{
+  "framework": {
+    "title": "How to answer an ML system design question",
+    "steps": [
+      "Clarify requirements (what decision does this serve? who uses it?)",
+      "Constraints & SLA (latency / throughput / cost / freshness)",
+      "Data & features (sources, labels, point-in-time correctness)",
+      "Model choice (baseline first; justify complexity)",
+      "Serving & scaling (batching, caching, autoscale, warm floor)",
+      "Evaluation (offline funnel + online metrics + slices)",
+      "Monitoring & drift (the four layers, ground-truth lag)",
+      "Failure modes & rollback (shadow → canary → progressive)",
+      "Cost (measure → cache → compress → route → quantize → distill)"
+    ]
+  },
+  "architectures": [
+    { "id": "production-rag", "title": "Production RAG system", "badge": "HOT", "blurb": "Ingestion → chunking → embedding → vector store → retriever → reranker → LLM → citation → cache → eval; freshness & guardrails." },
+    { "id": "agentic-rag", "title": "Agentic RAG / multi-agent system", "badge": "HOT", "blurb": "Planner, tool router, retrievers, critic/corrective loop (CRAG/Self-RAG), memory, MCP tools; bounded loops, idempotency, tracing." },
+    { "id": "llm-serving-platform", "title": "LLM serving platform", "badge": "HOT", "blurb": "Gateway → router → vLLM (PagedAttention + continuous batching) → KV-cache mgmt → autoscaling with warm floor; TTFT/TPOT SLOs." },
+    { "id": "llm-gateway", "title": "Multi-tenant LLM gateway", "badge": "HOT", "blurb": "Routing (small/big model), semantic + exact + prefix caching, rate limiting, cost metering, guardrails, observability." },
+    { "id": "recommendation", "title": "Recommendation system", "badge": "CORE", "blurb": "Two-tower retrieval + ranking; candidate gen → ranking → re-rank; feedback loops & position bias." },
+    { "id": "fraud-detection", "title": "Real-time fraud detection", "badge": "CORE", "blurb": "Streaming features + feature store + low-latency scoring + threshold/calibration + drift; PR-AUC focus, base-rate trap." },
+    { "id": "feature-store", "title": "Feature store architecture", "badge": "CORE", "blurb": "Offline (warehouse) + online (KV) + materialization + point-in-time joins; train/serve skew prevention." },
+    { "id": "semantic-search", "title": "Semantic / hybrid search", "badge": "CORE", "blurb": "BM25 + dense + cross-encoder rerank; ANN index; evaluation (NDCG, recall@k)." },
+    { "id": "monitoring-platform", "title": "ML monitoring & drift platform", "badge": "CORE", "blurb": "Four layers, reference windows, PSI/KS, alert design, ground-truth reconciliation." },
+    { "id": "distributed-training", "title": "Distributed training platform", "badge": "FOUNDATION", "blurb": "Orchestration, FSDP/ZeRO, checkpointing, experiment tracking (MLflow), fault tolerance." }
+  ]
+}

@@ -71,7 +71,8 @@ export async function dashboardPage() {
         RAG, agents, fine-tuning, serving, cloud GenAI.</p>
         <div class="dash-cta">
           ${nextRec ? `<a class="btn btn-accent" href="#/lesson/${nextRec.id}">▶ ${lastLesson ? 'Continue' : 'Start'}: ${escapeHtml(nextRec.title)}</a>` : ''}
-          <button class="btn" data-act="focus">⚡ Focus first (🔥 + ⭐)</button>
+          <a class="btn" href="#/cheatsheet">⚡ 1-hour cram sheet</a>
+          <button class="btn" data-act="focus">Focus first (🔥 + ⭐)</button>
         </div>
       </div>
       <div class="dash-hero-right">

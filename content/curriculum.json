@@ -224,9 +224,11 @@
     }
   ],
   "sections": [
+    { "id": "cheatsheet", "title": "⚡ Interview Cheatsheet", "badge": "HOT", "route": "#/cheatsheet", "note": "1-hour crash prep — 80-90% of hot topics" },
     { "id": "system-design", "title": "ML/AI System Design", "badge": "HOT", "route": "#/system-design", "note": "Framework + 10 architecture deep-dives" },
     { "id": "interview", "title": "Interview Mode", "badge": "HOT", "route": "#/interview", "note": "FAQ-100 · flashcards · mock drill" },
     { "id": "projects", "title": "Projects & Portfolio", "badge": "CORE", "route": "#/projects", "note": "3 flagship build guides" },
+    { "id": "playground", "title": "Playground", "badge": "CORE", "route": "#/playground", "note": "All 7 interactive instruments" },
     { "id": "glossary", "title": "Glossary", "badge": "FOUNDATION", "route": "#/glossary", "note": "Quick term lookup" }
   ]
 }
