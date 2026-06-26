@@ -6,7 +6,7 @@ colorTo: blue
 sdk: static
 pinned: true
 license: mit
-short_description: Production-grade ML/AI engineering — basics to interview-ready, free.
+short_description: Production ML/AI engineering, basics to interview-ready
 ---
 
 # 🛰️ ML/AI Engineer Academy
