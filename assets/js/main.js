@@ -10,6 +10,8 @@ import { xpSummary } from './gamify.js';
 import * as pages from './pages.js';
 import * as extra from './pages-extra.js';
 import { badgePill } from './components.js';
+import { initCursor } from './cursor.js';
+import { disposeHero } from './hero3d.js';
 
 /* ---- prefs --------------------------------------------------------------- */
 function applyPrefs() {
@@ -175,6 +177,7 @@ function registerRoutes() {
     highlightActive(hash);
     closeSidebar();
     syncTopbar();
+    if (hash !== '#/') disposeHero();   // free the WebGL hero when leaving Home
   });
 }
 
@@ -223,6 +226,7 @@ async function boot() {
 
   startRouter();
   initBg3d();
+  initCursor();
   registerServiceWorker();
 }
 

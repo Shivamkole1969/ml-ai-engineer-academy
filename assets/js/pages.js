@@ -8,6 +8,7 @@ import { renderLesson, hydrate } from './render.js';
 import { mountWidgets } from './widgets/index.js';
 import { badgePill, BADGE_META } from './components.js';
 import { readiness, trackProgress, xpSummary, celebrateCompletion } from './gamify.js';
+import { mountHero } from './hero3d.js';
 
 let CURRICULUM = null;
 const lessonCache = new Map();
@@ -91,8 +92,13 @@ export async function dashboardPage() {
         </div>
       </div>
       <div class="dash-hero-right">
-        <div class="readiness-big">${ring(r, 150, 'readiness')}</div>
-        <span class="dash-ring-label mono">Readiness</span>
+        <div class="hero-object">
+          <div id="hero3d" class="hero3d-mount" aria-hidden="true"></div>
+          <div class="hero-object-readout">
+            <span class="hero-pct mono">${r}<small>%</small></span>
+            <span class="dash-ring-label mono">readiness</span>
+          </div>
+        </div>
       </div>
     </header>
 
@@ -126,6 +132,11 @@ export async function dashboardPage() {
   });
   staggerReveal(node);
   countUp(node);
+  // mount the living-object hero once the node is in the DOM (next frame)
+  requestAnimationFrame(() => {
+    const mount = document.getElementById('hero3d');
+    if (mount) mountHero(mount, { readiness: r });
+  });
   return node;
 }
 

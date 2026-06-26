@@ -380,4 +380,23 @@
 .plan-task { color:var(--ink-300); font-size:.9rem; }
 .plan-note { color:var(--ink-500); font-size:.78rem; margin:8px 0 0; }
 
+/* ---- hero living-object (3D) --------------------------------------------- */
+.hero-object { position:relative; width:clamp(200px,28vw,320px); aspect-ratio:1; display:grid; place-items:center; }
+.hero3d-mount { position:absolute; inset:0; display:grid; place-items:center; }
+.hero3d-mount canvas { filter:drop-shadow(0 8px 40px rgba(58,214,255,.25)); }
+.hero-object-readout { position:relative; z-index:2; display:flex; flex-direction:column; align-items:center; pointer-events:none; text-shadow:0 2px 16px rgba(4,8,22,.8); }
+.hero-pct { font-size:2.4rem; font-weight:600; color:var(--ink-100); line-height:1; }
+.hero-pct small { font-size:1rem; color:var(--ink-300); }
+
+/* ---- custom cursor ------------------------------------------------------- */
+.has-custom-cursor, .has-custom-cursor a, .has-custom-cursor button,
+.has-custom-cursor .track-card, .has-custom-cursor input, .has-custom-cursor summary { cursor:none; }
+.cursor-dot, .cursor-ring { position:fixed; top:0; left:0; z-index:90; pointer-events:none; border-radius:50%; will-change:transform; }
+.cursor-dot { width:6px; height:6px; margin:-3px 0 0 -3px; background:var(--accent); transition:opacity .2s; }
+.cursor-ring { width:34px; height:34px; margin:-17px 0 0 -17px; border:1.5px solid var(--accent);
+  opacity:.7; transition:width .2s var(--ease), height .2s var(--ease), background .2s, opacity .2s, border-color .2s; mix-blend-mode:screen; }
+.cursor-ring.is-active { width:54px; height:54px; margin:-27px 0 0 -27px; background:rgba(58,214,255,.14); border-color:var(--accent-2); opacity:1; }
+.cursor-ring.is-down { width:24px; height:24px; margin:-12px 0 0 -12px; }
+@media (pointer: coarse){ .cursor-dot, .cursor-ring { display:none; } }
+
 /* ---- toast host already styled inline in gamify.js ----------------------- */
