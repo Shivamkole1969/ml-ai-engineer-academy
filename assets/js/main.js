@@ -222,6 +222,16 @@ async function boot() {
 
   startRouter();
   initBg3d();
+  registerServiceWorker();
+}
+
+/** Offline capability (DoD). Registered after first paint; non-fatal on failure. */
+function registerServiceWorker() {
+  if (!('serviceWorker' in navigator)) return;
+  if (location.protocol === 'file:') return; // SW needs http(s)
+  addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js').catch(() => { /* offline is a nice-to-have */ });
+  });
 }
 
 boot();

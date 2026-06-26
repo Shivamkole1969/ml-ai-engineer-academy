@@ -67,6 +67,20 @@ You get most of the quality for a fraction of the cost, and you can hot-swap ada
 the same base. **QLoRA** goes further — 4-bit frozen base — so you can adapt a 7B model on a free
 Colab T4. (Deep dive in the Fine-Tuning track.)
 
+In pseudo-code, the whole decision is a tiny function:
+
+```python {title="The decision, as code" run=false}
+def choose(problem):
+    if problem.is_just_unclear_prompt:
+        return "prompt better"          # always try first — minutes, free
+    if problem.is_missing_or_changing_facts:
+        return "RAG"                     # retrieve at runtime, stays fresh
+    if problem.is_wrong_format_or_tone:
+        return "fine-tune (LoRA)"        # teach a consistent behavior
+    # real systems often combine the last two:
+    return "LoRA for behavior + RAG for knowledge"
+```
+
 :::war-story {title="Six weeks fine-tuning what a retriever fixed in a day"}
 A team spent six weeks fine-tuning a model to "know" their product catalog. Every catalog update
 meant another training run. They eventually ripped it out and dropped in a simple RAG retriever

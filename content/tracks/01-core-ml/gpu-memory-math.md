@@ -45,6 +45,19 @@ sharding, whether QLoRA on a free Colab T4 is the move. Get it wrong and you eit
 (burn money) or crash mid-run (burn time).
 :::
 
+In code, the whole rule is four lines:
+
+```python {title="The 16-bytes/param rule" run=false}
+def train_vram_gb(n_params, bytes_per_param=16):   # Adam, mixed precision
+    return n_params * bytes_per_param / 1e9
+
+def infer_vram_gb(n_params, bits=16):               # 16→2B, 8→1B, 4→0.5B per param
+    return n_params * (bits / 8) / 1e9
+
+print(round(train_vram_gb(7e9), 0))   # 112  → won't fit one 80GB GPU
+print(round(infer_vram_gb(7e9, 4), 1)) # 3.5 → fits on a gaming GPU
+```
+
 Try the scenarios — flip between training and inference and watch it fit or blow up:
 
 :::widget {name="vram"}
