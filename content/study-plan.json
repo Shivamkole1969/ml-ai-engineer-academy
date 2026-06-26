@@ -1,0 +1,270 @@
+{
+ "version": 3,
+ "intro": "20 days · ~1 hour/day, following the 7-track path (Foundations → Classical ML → Deep Learning → LLMs → RAG → Agents → Cloud/MLOps → System Design). Each day ticks green as you finish its lessons. (Track 8 Extended is optional, beyond the 20-day core.)",
+ "days": [
+  {
+   "day": 1,
+   "title": "Foundations & Python",
+   "lessons": [
+    "production-thinking",
+    "bookish-vs-practical",
+    "interview-storytelling",
+    "env-tooling",
+    "project-structure",
+    "data-loaders-configs"
+   ],
+   "tasks": [],
+   "note": "~1 hour. Read each lesson, poke the widgets, do the drills."
+  },
+  {
+   "day": 2,
+   "title": "Foundations & Python",
+   "lessons": [
+    "logging-errors",
+    "testing-ml",
+    "numpy-pandas",
+    "sql-essentials",
+    "etl-elt",
+    "data-quality"
+   ],
+   "tasks": [],
+   "note": "~1 hour. Read each lesson, poke the widgets, do the drills."
+  },
+  {
+   "day": 3,
+   "title": "Foundations & Python · Classical ML",
+   "lessons": [
+    "vectors-matrices",
+    "probability-intuition",
+    "optimization-basics",
+    "ml-framing",
+    "bias-variance",
+    "eda-workflow"
+   ],
+   "tasks": [],
+   "note": "~1 hour. Read each lesson, poke the widgets, do the drills."
+  },
+  {
+   "day": 4,
+   "title": "Classical ML",
+   "lessons": [
+    "feature-types",
+    "leakage",
+    "linear-logistic",
+    "tree-models",
+    "boosting",
+    "loss-zoo"
+   ],
+   "tasks": [],
+   "note": "~1 hour. Read each lesson, poke the widgets, do the drills."
+  },
+  {
+   "day": 5,
+   "title": "Classical ML",
+   "lessons": [
+    "imbalance",
+    "accuracy-lies",
+    "splitting-strategy",
+    "error-analysis",
+    "clustering",
+    "dimensionality-reduction"
+   ],
+   "tasks": [],
+   "note": "~1 hour. Read each lesson, poke the widgets, do the drills."
+  },
+  {
+   "day": 6,
+   "title": "Classical ML · Deep Learning & Transformers",
+   "lessons": [
+    "anomaly-detection",
+    "neural-networks",
+    "backpropagation",
+    "optimization-dl",
+    "transformer-bridge",
+    "tokenization"
+   ],
+   "tasks": [],
+   "note": "~1 hour. Read each lesson, poke the widgets, do the drills."
+  },
+  {
+   "day": 7,
+   "title": "Deep Learning & Transformers",
+   "lessons": [
+    "attention-context",
+    "kv-cache",
+    "pretrained-hf",
+    "embeddings-search",
+    "gpu-memory-math"
+   ],
+   "tasks": [],
+   "note": "~1 hour. Read each lesson, poke the widgets, do the drills."
+  },
+  {
+   "day": 8,
+   "title": "Deep Learning & Transformers · LLMs, Prompting & Fine-Tuning",
+   "lessons": [
+    "mixed-precision",
+    "lora-vs-rag",
+    "prompt-structure",
+    "few-shot",
+    "prompt-injection-defense"
+   ],
+   "tasks": [],
+   "note": "~1 hour. Read each lesson, poke the widgets, do the drills."
+  },
+  {
+   "day": 9,
+   "title": "LLMs, Prompting & Fine-Tuning",
+   "lessons": [
+    "sampling-parameters",
+    "hallucinations",
+    "peft-family",
+    "hands-on-peft",
+    "sft-instruction"
+   ],
+   "tasks": [],
+   "note": "~1 hour. Read each lesson, poke the widgets, do the drills."
+  },
+  {
+   "day": 10,
+   "title": "LLMs, Prompting & Fine-Tuning · RAG: Basic → Agentic → GraphRAG",
+   "lessons": [
+    "eval-finetune",
+    "ollama-llamacpp",
+    "quantization",
+    "vllm",
+    "rag-pipeline"
+   ],
+   "tasks": [],
+   "note": "~1 hour. Read each lesson, poke the widgets, do the drills."
+  },
+  {
+   "day": 11,
+   "title": "RAG: Basic → Agentic → GraphRAG",
+   "lessons": [
+    "chunking",
+    "embeddings-rag",
+    "vector-databases",
+    "reranking-hybrid",
+    "query-transformation"
+   ],
+   "tasks": [],
+   "note": "~1 hour. Read each lesson, poke the widgets, do the drills."
+  },
+  {
+   "day": 12,
+   "title": "RAG: Basic → Agentic → GraphRAG",
+   "lessons": [
+    "advanced-rag",
+    "graphrag",
+    "sql-rag",
+    "rag-evaluation",
+    "production-rag"
+   ],
+   "tasks": [],
+   "note": "~1 hour. Read each lesson, poke the widgets, do the drills."
+  },
+  {
+   "day": 13,
+   "title": "Agentic AI & Multi-Agent Systems",
+   "lessons": [
+    "agent-loop",
+    "compounding-error",
+    "tools-memory-planning",
+    "agent-frameworks",
+    "stategraph"
+   ],
+   "tasks": [],
+   "note": "~1 hour. Read each lesson, poke the widgets, do the drills."
+  },
+  {
+   "day": 14,
+   "title": "Agentic AI & Multi-Agent Systems",
+   "lessons": [
+    "short-term-memory",
+    "long-term-memory",
+    "mcp",
+    "agents-in-prod",
+    "agent-eval"
+   ],
+   "tasks": [],
+   "note": "~1 hour. Read each lesson, poke the widgets, do the drills."
+  },
+  {
+   "day": 15,
+   "title": "Cloud, MLOps/LLMOps & Deployment",
+   "lessons": [
+    "fastapi-serving",
+    "docker-ml",
+    "experiment-tracking",
+    "drift-detection",
+    "llm-monitoring"
+   ],
+   "tasks": [],
+   "note": "~1 hour. Read each lesson, poke the widgets, do the drills."
+  },
+  {
+   "day": 16,
+   "title": "Cloud, MLOps/LLMOps & Deployment",
+   "lessons": [
+    "cost-toolkit",
+    "aws-bedrock",
+    "gcp-vertex",
+    "snowflake-cortex",
+    "llm-security"
+   ],
+   "tasks": [],
+   "note": "~1 hour. Read each lesson, poke the widgets, do the drills."
+  },
+  {
+   "day": 17,
+   "title": "Cloud, MLOps/LLMOps & Deployment · System Design, FAQ-100 & Capstones",
+   "lessons": [
+    "deployment-ladder",
+    "sysdesign-genai",
+    "sysdesign-framework",
+    "requirement-framing",
+    "scaling-ml"
+   ],
+   "tasks": [],
+   "note": "~1 hour. Read each lesson, poke the widgets, do the drills."
+  },
+  {
+   "day": 18,
+   "title": "System Design, FAQ-100 & Capstones",
+   "lessons": [
+    "failure-handling",
+    "metrics-roi",
+    "project-ladder",
+    "portfolio-structure",
+    "mock-interviews"
+   ],
+   "tasks": [],
+   "note": "~1 hour. Read each lesson, poke the widgets, do the drills."
+  },
+  {
+   "day": 19,
+   "title": "System Design + FAQ drilling",
+   "lessons": [],
+   "route": "#/system-design",
+   "note": "Trace diagrams; drill FAQ-100.",
+   "tasks": [
+    "System Design Library: the framework + top architectures",
+    "FAQ-100: filter to 🔥, reveal + rate",
+    "Flashcards: clear the due pile"
+   ]
+  },
+  {
+   "day": 20,
+   "title": "Final cram + mock",
+   "lessons": [],
+   "route": "#/cheatsheet",
+   "note": "You're interview-ready.",
+   "tasks": [
+    "Read the full ⚡ Cheatsheet",
+    "Run 2–3 Mock Drill rounds",
+    "Skim Capstone guides; plan your portfolio build"
+   ]
+  }
+ ]
+}

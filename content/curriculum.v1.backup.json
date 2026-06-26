@@ -1,0 +1,235 @@
+{
+  "version": 1,
+  "tracks": [
+    {
+      "id": "01-core-ml",
+      "title": "Core ML Stack & Systems Thinking",
+      "badge": "CORE",
+      "chapter": "Handbook Ch.1",
+      "lessons": [
+        { "id": "systems-thinking", "title": "Systems thinking: a model is a tensor program", "badge": "CORE", "minutes": 8, "xp": 45 },
+        { "id": "pytorch-vs-jax", "title": "PyTorch vs JAX — pick on purpose", "badge": "CORE", "minutes": 7, "xp": 45 },
+        { "id": "training-loop", "title": "What .fit() hides — the 5-step training loop", "badge": "CORE", "minutes": 9, "xp": 45 },
+        { "id": "gpu-memory-math", "title": "GPU memory math & the 16-bytes/param rule", "badge": "HOT", "minutes": 10, "xp": 60, "widget": "vram" },
+        { "id": "mixed-precision", "title": "Mixed precision: fp32/fp16/bf16/fp8 (why bf16 won)", "badge": "HOT", "minutes": 9, "xp": 60 },
+        { "id": "kernels-compile", "title": "Kernels, fusion, torch.compile, FlashAttention", "badge": "HOT", "minutes": 10, "xp": 60 },
+        { "id": "profiling-debug", "title": "Profiling & the on-call debugging table (OOM, NaN, low util)", "badge": "CORE", "minutes": 9, "xp": 45 }
+      ]
+    },
+    {
+      "id": "02-data-reality",
+      "title": "Data Reality & Failure Modes",
+      "badge": "CORE",
+      "chapter": "Handbook Ch.2",
+      "lessons": [
+        { "id": "upstream-principle", "title": "The upstream principle (most failures are data failures)", "badge": "CORE", "minutes": 7, "xp": 45 },
+        { "id": "data-origins", "title": "Where data comes from & its built-in distortion", "badge": "CORE", "minutes": 8, "xp": 45 },
+        { "id": "how-data-lies", "title": "How data lies: selection, survivorship, feedback, Simpson's, MNAR", "badge": "HOT", "minutes": 10, "xp": 60 },
+        { "id": "drift-types", "title": "Drift kept distinct: covariate vs label vs concept", "badge": "HOT", "minutes": 9, "xp": 60 },
+        { "id": "label-degradation", "title": "Label degradation: agreement, guideline drift, soft labels", "badge": "CORE", "minutes": 8, "xp": 45 },
+        { "id": "leakage", "title": "Leakage — the silent score inflator + the one-sentence test", "badge": "HOT", "minutes": 10, "xp": 60 },
+        { "id": "shortcuts", "title": "Shortcuts & spurious correlations + defenses", "badge": "CORE", "minutes": 8, "xp": 45 },
+        { "id": "debugging-order", "title": "The debugging order (data → labels → splits → features → model)", "badge": "CORE", "minutes": 7, "xp": 45 }
+      ]
+    },
+    {
+      "id": "03-statistics",
+      "title": "Statistics That Actually Matter",
+      "badge": "CORE",
+      "chapter": "Handbook Ch.3",
+      "lessons": [
+        { "id": "bias-variance", "title": "Bias–variance + the learning-curve diagnostic", "badge": "CORE", "minutes": 9, "xp": 45, "widget": "biasvar" },
+        { "id": "confidence-bootstrap", "title": "Confidence intervals & the bootstrap", "badge": "CORE", "minutes": 8, "xp": 45 },
+        { "id": "calibration", "title": "Calibration: reliability diagrams, ECE, temperature/Platt/isotonic", "badge": "HOT", "minutes": 10, "xp": 60, "widget": "calibration" },
+        { "id": "accuracy-lies", "title": "Why \"95% accuracy\" lies: base rates, P/R/F1, ROC-AUC vs PR-AUC", "badge": "HOT", "minutes": 10, "xp": 60 },
+        { "id": "distribution-shift", "title": "Detecting distribution shift: PSI, KS, Wasserstein, MMD", "badge": "CORE", "minutes": 9, "xp": 45 }
+      ]
+    },
+    {
+      "id": "04-losses",
+      "title": "Losses & Objective Design",
+      "badge": "CORE",
+      "chapter": "Handbook Ch.4",
+      "lessons": [
+        { "id": "loss-zoo", "title": "The loss zoo & the behavior each induces", "badge": "CORE", "minutes": 9, "xp": 45 },
+        { "id": "gradients-story", "title": "Gradients tell the story (CE vs focal)", "badge": "CORE", "minutes": 8, "xp": 45 },
+        { "id": "imbalance", "title": "Imbalance & regularizing the objective", "badge": "CORE", "minutes": 9, "xp": 45 },
+        { "id": "proxy-gap", "title": "Misaligned losses: the proxy gap (how bad products are born)", "badge": "HOT", "minutes": 9, "xp": 60 }
+      ]
+    },
+    {
+      "id": "05-evaluation",
+      "title": "Evaluation Beyond Benchmarks",
+      "badge": "CORE",
+      "chapter": "Handbook Ch.5",
+      "lessons": [
+        { "id": "kaggle-vs-real", "title": "Kaggle metrics vs real-world metrics", "badge": "CORE", "minutes": 8, "xp": 45 },
+        { "id": "eval-funnel", "title": "Offline vs online & the evaluation funnel", "badge": "CORE", "minutes": 9, "xp": 45 },
+        { "id": "ab-traps", "title": "A/B testing traps (peeking, novelty, interference, SRM)", "badge": "CORE", "minutes": 10, "xp": 45 },
+        { "id": "regression-tests", "title": "Model regression tests: golden sets & per-slice gates", "badge": "HOT", "minutes": 9, "xp": 60 },
+        { "id": "goodhart", "title": "Goodhart's law & defenses", "badge": "CORE", "minutes": 7, "xp": 45 },
+        { "id": "decision-driven-eval", "title": "Decision-driven eval (work backwards from the decision)", "badge": "HOT", "minutes": 8, "xp": 60 }
+      ]
+    },
+    {
+      "id": "06-training-scale",
+      "title": "Training at Scale",
+      "badge": "CORE",
+      "chapter": "Handbook Ch.6",
+      "lessons": [
+        { "id": "parallelism-taxonomy", "title": "Parallelism taxonomy: DDP / FSDP / ZeRO / TP / PP", "badge": "HOT", "minutes": 11, "xp": 60 },
+        { "id": "parallelism-decision", "title": "The DDP→FSDP→TP→PP decision (how to choose, out loud)", "badge": "HOT", "minutes": 9, "xp": 60 },
+        { "id": "grad-accumulation", "title": "Gradient accumulation (+ the two traps)", "badge": "CORE", "minutes": 7, "xp": 45 },
+        { "id": "checkpointing", "title": "Checkpointing that survives a crash (resumable ≠ weights-only)", "badge": "CORE", "minutes": 8, "xp": 45 },
+        { "id": "reproducibility", "title": "Reproducibility and its limits", "badge": "FOUNDATION", "minutes": 6, "xp": 30 },
+        { "id": "fault-tolerance", "title": "Preventing multi-day run failures (elastic, fault tolerance)", "badge": "CORE", "minutes": 8, "xp": 45 }
+      ]
+    },
+    {
+      "id": "07-llm-foundations",
+      "title": "LLM Foundations & Tradeoffs",
+      "badge": "HOT",
+      "chapter": "Handbook Ch.7",
+      "lessons": [
+        { "id": "tokenization", "title": "Tokenization — the layer everyone skips then debugs", "badge": "HOT", "minutes": 10, "xp": 60, "widget": "tokencost" },
+        { "id": "attention-context", "title": "Attention & context limits — the O(n²) wall", "badge": "HOT", "minutes": 10, "xp": 60 },
+        { "id": "kv-cache", "title": "KV cache — the real inference memory bill", "badge": "HOT", "minutes": 11, "xp": 60, "widget": "kvcache" },
+        { "id": "lora-vs-rag", "title": "LoRA vs fine-tune vs RAG — the decision you make constantly", "badge": "HOT", "minutes": 10, "xp": 60 },
+        { "id": "hallucinations", "title": "Where hallucinations originate & layered mitigations", "badge": "HOT", "minutes": 9, "xp": 60 }
+      ]
+    },
+    {
+      "id": "08-inference-serving",
+      "title": "Inference & Serving Systems",
+      "badge": "HOT",
+      "chapter": "Handbook Ch.8",
+      "lessons": [
+        { "id": "batching", "title": "Batching: static → dynamic → continuous (in-flight)", "badge": "HOT", "minutes": 10, "xp": 60, "widget": "throughput" },
+        { "id": "streaming-latencies", "title": "Streaming & the two latencies: TTFT vs TPOT", "badge": "HOT", "minutes": 9, "xp": 60 },
+        { "id": "quantization", "title": "Quantization: INT8/INT4/FP8, PTQ vs QAT, GPTQ/AWQ", "badge": "HOT", "minutes": 11, "xp": 60 },
+        { "id": "vllm", "title": "vLLM — the reference serving engine", "badge": "HOT", "minutes": 9, "xp": 60 },
+        { "id": "cold-starts", "title": "Cold starts & the scale-to-zero trap", "badge": "CORE", "minutes": 7, "xp": 45 },
+        { "id": "gpu-vs-cpu", "title": "GPU vs CPU — choose by workload", "badge": "FOUNDATION", "minutes": 6, "xp": 30 },
+        { "id": "serving-harder", "title": "Why serving is harder than training (the tail is the product)", "badge": "CORE", "minutes": 8, "xp": 45 }
+      ]
+    },
+    {
+      "id": "09-genai-rag",
+      "title": "Generative AI Engineering & RAG",
+      "badge": "HOT",
+      "chapter": "NEW — top market priority",
+      "lessons": [
+        { "id": "llm-app-fundamentals", "title": "LLM app fundamentals: APIs, prompting, structured outputs, tool calling", "badge": "HOT", "minutes": 11, "xp": 60 },
+        { "id": "embeddings-search", "title": "Embeddings & semantic search (cosine sim, ANN)", "badge": "HOT", "minutes": 10, "xp": 60 },
+        { "id": "vector-databases", "title": "Vector databases: FAISS, Chroma, pgvector, Pinecone, Weaviate/Milvus", "badge": "HOT", "minutes": 11, "xp": 60 },
+        { "id": "rag-pipeline", "title": "The RAG pipeline: load → chunk → embed → index → retrieve → rerank → generate → cite", "badge": "HOT", "minutes": 12, "xp": 60 },
+        { "id": "chunking", "title": "Chunking strategies & context optimization", "badge": "HOT", "minutes": 10, "xp": 60 },
+        { "id": "reranking-hybrid", "title": "Reranking & hybrid search (BM25 + dense + cross-encoder)", "badge": "HOT", "minutes": 10, "xp": 60 },
+        { "id": "advanced-rag", "title": "Advanced RAG: query rewriting, CRAG, Self-RAG, Agentic RAG", "badge": "HOT", "minutes": 12, "xp": 60 },
+        { "id": "graphrag", "title": "GraphRAG & knowledge graphs (Neo4j / Neptune; multi-hop)", "badge": "HOT", "minutes": 11, "xp": 60 },
+        { "id": "rag-evaluation", "title": "RAG evaluation (RAGAS: faithfulness, relevancy, context precision/recall)", "badge": "HOT", "minutes": 10, "xp": 60 },
+        { "id": "orchestration-frameworks", "title": "Orchestration: LangChain vs LlamaIndex vs LangGraph", "badge": "HOT", "minutes": 9, "xp": 60 },
+        { "id": "production-rag", "title": "Production RAG: freshness, chunk drift, cost, guardrails, caching", "badge": "HOT", "minutes": 11, "xp": 60 }
+      ]
+    },
+    {
+      "id": "10-fine-tuning",
+      "title": "Fine-Tuning & Model Adaptation",
+      "badge": "HOT",
+      "chapter": "NEW — résumé gap: PEFT/LoRA/QLoRA",
+      "lessons": [
+        { "id": "prompt-rag-finetune", "title": "When to prompt vs RAG vs fine-tune (decision framework)", "badge": "HOT", "minutes": 9, "xp": 60 },
+        { "id": "sft-instruction", "title": "SFT & instruction tuning: data format & data quality", "badge": "HOT", "minutes": 10, "xp": 60 },
+        { "id": "peft-family", "title": "PEFT family: LoRA, QLoRA, adapters, prefix/prompt tuning", "badge": "HOT", "minutes": 11, "xp": 60 },
+        { "id": "hands-on-peft", "title": "Hands-on: transformers + peft + trl (SFTTrainer), 4-bit", "badge": "HOT", "minutes": 12, "xp": 60 },
+        { "id": "eval-finetune", "title": "Evaluating a fine-tune; forgetting; merging; swappable LoRAs", "badge": "HOT", "minutes": 10, "xp": 60 },
+        { "id": "alignment", "title": "Alignment overview: RLHF, DPO, why helpfulness-only rewards hallucinate", "badge": "CORE", "minutes": 9, "xp": 45 },
+        { "id": "distillation", "title": "Distillation as adaptation (student/teacher)", "badge": "CORE", "minutes": 8, "xp": 45 }
+      ]
+    },
+    {
+      "id": "11-agents-mcp",
+      "title": "Agents, Tools & MCP",
+      "badge": "HOT",
+      "chapter": "NEW — résumé gap + Ch.12",
+      "lessons": [
+        { "id": "agent-loop", "title": "The agent loop (reason → tool → observe → loop/stop) & where it breaks", "badge": "HOT", "minutes": 10, "xp": 60 },
+        { "id": "compounding-error", "title": "The compounding-error math (0.95¹⁰ ≈ 60%)", "badge": "HOT", "minutes": 8, "xp": 60, "widget": "agenterror" },
+        { "id": "tools-memory-planning", "title": "Tool calling, memory, planning, multi-agent — capabilities & failures", "badge": "HOT", "minutes": 11, "xp": 60 },
+        { "id": "agent-frameworks", "title": "Frameworks: LangGraph vs CrewAI vs AutoGen", "badge": "HOT", "minutes": 9, "xp": 60 },
+        { "id": "mcp", "title": "Model Context Protocol (MCP): clients, servers, tools/resources", "badge": "HOT", "minutes": 10, "xp": 60 },
+        { "id": "agents-in-prod", "title": "Designing agents that survive production", "badge": "HOT", "minutes": 11, "xp": 60 },
+        { "id": "agent-eval", "title": "Agent evaluation & observability (traces, tool-success, task success)", "badge": "HOT", "minutes": 9, "xp": 60 }
+      ]
+    },
+    {
+      "id": "12-pipelines",
+      "title": "Pipelines & Data Infrastructure",
+      "badge": "CORE",
+      "chapter": "Handbook Ch.10",
+      "lessons": [
+        { "id": "feature-stores", "title": "Feature stores: offline vs online, materialization, point-in-time join", "badge": "HOT", "minutes": 10, "xp": 60 },
+        { "id": "need-feature-store", "title": "When you actually need a feature store (and when a SQL job is plenty)", "badge": "CORE", "minutes": 8, "xp": 45 },
+        { "id": "offline-online", "title": "Offline vs online data — the same value, two clocks", "badge": "CORE", "minutes": 8, "xp": 45 },
+        { "id": "backfills", "title": "Backfills & point-in-time correctness", "badge": "HOT", "minutes": 9, "xp": 60 },
+        { "id": "late-events", "title": "Late-arriving events, watermarks, windowing", "badge": "CORE", "minutes": 8, "xp": 45 },
+        { "id": "schema-evolution", "title": "Schema evolution (backward/forward/breaking; the silent unit bug)", "badge": "CORE", "minutes": 8, "xp": 45 },
+        { "id": "broken-joins", "title": "Broken joins & silent corruption; data contracts", "badge": "HOT", "minutes": 9, "xp": 60 }
+      ]
+    },
+    {
+      "id": "13-monitoring-cost",
+      "title": "Monitoring, Optimization & Cost Control",
+      "badge": "HOT",
+      "chapter": "Handbook Ch.11",
+      "lessons": [
+        { "id": "four-layers", "title": "The four monitoring layers & ground-truth lag", "badge": "CORE", "minutes": 9, "xp": 45 },
+        { "id": "drift-detection", "title": "Drift detection in production (reference → compare → alert)", "badge": "CORE", "minutes": 9, "xp": 45 },
+        { "id": "tail-latency", "title": "Latency, outliers & the tail (percentiles don't average)", "badge": "HOT", "minutes": 9, "xp": 60 },
+        { "id": "llm-monitoring", "title": "LLM-specific monitoring: token spend, hallucination rate, silent decay", "badge": "HOT", "minutes": 10, "xp": 60 },
+        { "id": "cost-toolkit", "title": "Cost toolkit: distillation, pruning, quantization, caching, routing", "badge": "HOT", "minutes": 11, "xp": 60 },
+        { "id": "cost-order", "title": "A sane cost-reduction order of operations", "badge": "HOT", "minutes": 8, "xp": 60 }
+      ]
+    },
+    {
+      "id": "14-production-safety",
+      "title": "Production, Safety & Org Reality",
+      "badge": "HOT",
+      "chapter": "Handbook Ch.12",
+      "lessons": [
+        { "id": "agents-recap", "title": "Agents recap as a production system (links to Track 11)", "badge": "CORE", "minutes": 7, "xp": 45 },
+        { "id": "llm-security", "title": "LLM security/threat model: prompt injection, exfiltration, jailbreak + defenses", "badge": "HOT", "minutes": 12, "xp": 60 },
+        { "id": "security-principle", "title": "The core security principle: architecture beats wording", "badge": "HOT", "minutes": 9, "xp": 60 },
+        { "id": "deployment-ladder", "title": "Deployment: shadow → canary → progressive → rollback", "badge": "HOT", "minutes": 10, "xp": 60 },
+        { "id": "distributed-discipline", "title": "Distributed-systems discipline: queues, retries, idempotency, backpressure", "badge": "HOT", "minutes": 10, "xp": 60 },
+        { "id": "docs-operable", "title": "Documentation that makes a system operable: model cards, ADRs, runbooks", "badge": "CORE", "minutes": 8, "xp": 45 }
+      ]
+    },
+    {
+      "id": "15-cloud-genai",
+      "title": "Cloud GenAI Platforms (free-tier oriented)",
+      "badge": "HOT",
+      "chapter": "NEW — résumé gap: AWS/GCP/Snowflake",
+      "lessons": [
+        { "id": "lay-of-land", "title": "The lay of the land: managed APIs vs training vs RAG vs agents on cloud", "badge": "CORE", "minutes": 8, "xp": 45 },
+        { "id": "aws-bedrock", "title": "AWS Bedrock: model access, Knowledge Bases, Agents, Guardrails", "badge": "HOT", "minutes": 11, "xp": 60 },
+        { "id": "aws-sagemaker", "title": "AWS SageMaker: training jobs, endpoints, Pipelines; S3/EC2 basics", "badge": "CORE", "minutes": 10, "xp": 45 },
+        { "id": "gcp-vertex", "title": "GCP Vertex AI: training, endpoints, RAG Engine, Agent Builder", "badge": "HOT", "minutes": 10, "xp": 60 },
+        { "id": "gemini-api", "title": "Gemini API & Gemini Enterprise: grounding, function calling, search", "badge": "HOT", "minutes": 10, "xp": 60 },
+        { "id": "bigquery-ml", "title": "BigQuery ML: train/predict in SQL", "badge": "CORE", "minutes": 8, "xp": 45 },
+        { "id": "snowflake-cortex", "title": "Snowflake Cortex: LLM functions, Cortex Search, Cortex Analyst, Snowpark", "badge": "CORE", "minutes": 9, "xp": 45 },
+        { "id": "mlops-glue", "title": "MLOps glue: MLflow, Docker, FastAPI serving, Terraform note", "badge": "HOT", "minutes": 11, "xp": 60 },
+        { "id": "free-tier-survival", "title": "Cost & free-tier survival guide (practice each platform for ₹0)", "badge": "CORE", "minutes": 7, "xp": 45 }
+      ]
+    }
+  ],
+  "sections": [
+    { "id": "study-plan", "title": "📅 Study Plan", "badge": "HOT", "route": "#/study-plan", "note": "20 days × 1 hour — auto-tracked" },
+    { "id": "cheatsheet", "title": "⚡ Interview Cheatsheet", "badge": "HOT", "route": "#/cheatsheet", "note": "1-hour crash prep — 80-90% of hot topics" },
+    { "id": "system-design", "title": "ML/AI System Design", "badge": "HOT", "route": "#/system-design", "note": "Framework + 10 architecture deep-dives" },
+    { "id": "interview", "title": "Interview Mode", "badge": "HOT", "route": "#/interview", "note": "FAQ-100 · flashcards · mock drill" },
+    { "id": "projects", "title": "Projects & Portfolio", "badge": "CORE", "route": "#/projects", "note": "3 flagship build guides" },
+    { "id": "playground", "title": "Playground", "badge": "CORE", "route": "#/playground", "note": "All 7 interactive instruments" },
+    { "id": "glossary", "title": "Glossary", "badge": "FOUNDATION", "route": "#/glossary", "note": "Quick term lookup" }
+  ]
+}

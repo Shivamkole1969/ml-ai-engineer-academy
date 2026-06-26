@@ -1,0 +1,12 @@
+AI/ML Engineering Handbook Package
+Generated PDFs:
+- AI_ML_Engineering_Core_Handbook_Production_India.pdf: 141 pages
+- AI_ML_Engineering_Interview_Cheatsheet_3_Day_Revision.pdf: 27 pages
+- AI_ML_System_Design_Appendix_Production_Diagrams.pdf: 34 pages
+- AI_ML_Engineering_Question_Bank_Scenario_Based.pdf: 52 pages
+
+Use order:
+1. Core Handbook
+2. System Design Appendix
+3. Question Bank
+4. Interview Cheatsheet

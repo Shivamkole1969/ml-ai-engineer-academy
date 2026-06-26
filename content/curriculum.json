@@ -1,234 +1,968 @@
 {
-  "version": 1,
-  "tracks": [
+ "version": 3,
+ "tracks": [
+  {
+   "id": "t0-foundations",
+   "title": "Track 0 · Foundations & Python",
+   "badge": "CORE",
+   "chapter": "15 lessons",
+   "lessons": [
     {
-      "id": "01-core-ml",
-      "title": "Core ML Stack & Systems Thinking",
-      "badge": "CORE",
-      "chapter": "Handbook Ch.1",
-      "lessons": [
-        { "id": "systems-thinking", "title": "Systems thinking: a model is a tensor program", "badge": "CORE", "minutes": 8, "xp": 45 },
-        { "id": "pytorch-vs-jax", "title": "PyTorch vs JAX — pick on purpose", "badge": "CORE", "minutes": 7, "xp": 45 },
-        { "id": "training-loop", "title": "What .fit() hides — the 5-step training loop", "badge": "CORE", "minutes": 9, "xp": 45 },
-        { "id": "gpu-memory-math", "title": "GPU memory math & the 16-bytes/param rule", "badge": "HOT", "minutes": 10, "xp": 60, "widget": "vram" },
-        { "id": "mixed-precision", "title": "Mixed precision: fp32/fp16/bf16/fp8 (why bf16 won)", "badge": "HOT", "minutes": 9, "xp": 60 },
-        { "id": "kernels-compile", "title": "Kernels, fusion, torch.compile, FlashAttention", "badge": "HOT", "minutes": 10, "xp": 60 },
-        { "id": "profiling-debug", "title": "Profiling & the on-call debugging table (OOM, NaN, low util)", "badge": "CORE", "minutes": 9, "xp": 45 }
-      ]
+     "id": "production-thinking",
+     "title": "Production thinking: accuracy is the easy part",
+     "badge": "CORE",
+     "minutes": 9,
+     "xp": 45,
+     "src": "content/tracks/ch01-mindset/production-thinking.md"
     },
     {
-      "id": "02-data-reality",
-      "title": "Data Reality & Failure Modes",
-      "badge": "CORE",
-      "chapter": "Handbook Ch.2",
-      "lessons": [
-        { "id": "upstream-principle", "title": "The upstream principle (most failures are data failures)", "badge": "CORE", "minutes": 7, "xp": 45 },
-        { "id": "data-origins", "title": "Where data comes from & its built-in distortion", "badge": "CORE", "minutes": 8, "xp": 45 },
-        { "id": "how-data-lies", "title": "How data lies: selection, survivorship, feedback, Simpson's, MNAR", "badge": "HOT", "minutes": 10, "xp": 60 },
-        { "id": "drift-types", "title": "Drift kept distinct: covariate vs label vs concept", "badge": "HOT", "minutes": 9, "xp": 60 },
-        { "id": "label-degradation", "title": "Label degradation: agreement, guideline drift, soft labels", "badge": "CORE", "minutes": 8, "xp": 45 },
-        { "id": "leakage", "title": "Leakage — the silent score inflator + the one-sentence test", "badge": "HOT", "minutes": 10, "xp": 60 },
-        { "id": "shortcuts", "title": "Shortcuts & spurious correlations + defenses", "badge": "CORE", "minutes": 8, "xp": 45 },
-        { "id": "debugging-order", "title": "The debugging order (data → labels → splits → features → model)", "badge": "CORE", "minutes": 7, "xp": 45 }
-      ]
+     "id": "bookish-vs-practical",
+     "title": "Bookish vs practical answers",
+     "badge": "CORE",
+     "minutes": 9,
+     "xp": 45,
+     "src": "content/tracks/ch01-mindset/bookish-vs-practical.md"
     },
     {
-      "id": "03-statistics",
-      "title": "Statistics That Actually Matter",
-      "badge": "CORE",
-      "chapter": "Handbook Ch.3",
-      "lessons": [
-        { "id": "bias-variance", "title": "Bias–variance + the learning-curve diagnostic", "badge": "CORE", "minutes": 9, "xp": 45, "widget": "biasvar" },
-        { "id": "confidence-bootstrap", "title": "Confidence intervals & the bootstrap", "badge": "CORE", "minutes": 8, "xp": 45 },
-        { "id": "calibration", "title": "Calibration: reliability diagrams, ECE, temperature/Platt/isotonic", "badge": "HOT", "minutes": 10, "xp": 60, "widget": "calibration" },
-        { "id": "accuracy-lies", "title": "Why \"95% accuracy\" lies: base rates, P/R/F1, ROC-AUC vs PR-AUC", "badge": "HOT", "minutes": 10, "xp": 60 },
-        { "id": "distribution-shift", "title": "Detecting distribution shift: PSI, KS, Wasserstein, MMD", "badge": "CORE", "minutes": 9, "xp": 45 }
-      ]
+     "id": "interview-storytelling",
+     "title": "Interview storytelling: the problem→impact arc",
+     "badge": "HOT",
+     "minutes": 9,
+     "xp": 60,
+     "src": "content/tracks/ch01-mindset/interview-storytelling.md"
     },
     {
-      "id": "04-losses",
-      "title": "Losses & Objective Design",
-      "badge": "CORE",
-      "chapter": "Handbook Ch.4",
-      "lessons": [
-        { "id": "loss-zoo", "title": "The loss zoo & the behavior each induces", "badge": "CORE", "minutes": 9, "xp": 45 },
-        { "id": "gradients-story", "title": "Gradients tell the story (CE vs focal)", "badge": "CORE", "minutes": 8, "xp": 45 },
-        { "id": "imbalance", "title": "Imbalance & regularizing the objective", "badge": "CORE", "minutes": 9, "xp": 45 },
-        { "id": "proxy-gap", "title": "Misaligned losses: the proxy gap (how bad products are born)", "badge": "HOT", "minutes": 9, "xp": 60 }
-      ]
+     "id": "env-tooling",
+     "title": "Environment & tooling (venv, uv, Colab, Git)",
+     "badge": "CORE",
+     "minutes": 9,
+     "xp": 45
     },
     {
-      "id": "05-evaluation",
-      "title": "Evaluation Beyond Benchmarks",
-      "badge": "CORE",
-      "chapter": "Handbook Ch.5",
-      "lessons": [
-        { "id": "kaggle-vs-real", "title": "Kaggle metrics vs real-world metrics", "badge": "CORE", "minutes": 8, "xp": 45 },
-        { "id": "eval-funnel", "title": "Offline vs online & the evaluation funnel", "badge": "CORE", "minutes": 9, "xp": 45 },
-        { "id": "ab-traps", "title": "A/B testing traps (peeking, novelty, interference, SRM)", "badge": "CORE", "minutes": 10, "xp": 45 },
-        { "id": "regression-tests", "title": "Model regression tests: golden sets & per-slice gates", "badge": "HOT", "minutes": 9, "xp": 60 },
-        { "id": "goodhart", "title": "Goodhart's law & defenses", "badge": "CORE", "minutes": 7, "xp": 45 },
-        { "id": "decision-driven-eval", "title": "Decision-driven eval (work backwards from the decision)", "badge": "HOT", "minutes": 8, "xp": 60 }
-      ]
+     "id": "project-structure",
+     "title": "Clean project structure & packaging",
+     "badge": "CORE",
+     "minutes": 9,
+     "xp": 45,
+     "src": "content/tracks/ch02-python/project-structure.md"
     },
     {
-      "id": "06-training-scale",
-      "title": "Training at Scale",
-      "badge": "CORE",
-      "chapter": "Handbook Ch.6",
-      "lessons": [
-        { "id": "parallelism-taxonomy", "title": "Parallelism taxonomy: DDP / FSDP / ZeRO / TP / PP", "badge": "HOT", "minutes": 11, "xp": 60 },
-        { "id": "parallelism-decision", "title": "The DDP→FSDP→TP→PP decision (how to choose, out loud)", "badge": "HOT", "minutes": 9, "xp": 60 },
-        { "id": "grad-accumulation", "title": "Gradient accumulation (+ the two traps)", "badge": "CORE", "minutes": 7, "xp": 45 },
-        { "id": "checkpointing", "title": "Checkpointing that survives a crash (resumable ≠ weights-only)", "badge": "CORE", "minutes": 8, "xp": 45 },
-        { "id": "reproducibility", "title": "Reproducibility and its limits", "badge": "FOUNDATION", "minutes": 6, "xp": 30 },
-        { "id": "fault-tolerance", "title": "Preventing multi-day run failures (elastic, fault tolerance)", "badge": "CORE", "minutes": 8, "xp": 45 }
-      ]
+     "id": "data-loaders-configs",
+     "title": "Data loaders & configs that scale",
+     "badge": "CORE",
+     "minutes": 9,
+     "xp": 45,
+     "src": "content/tracks/ch02-python/data-loaders-configs.md"
     },
     {
-      "id": "07-llm-foundations",
-      "title": "LLM Foundations & Tradeoffs",
-      "badge": "HOT",
-      "chapter": "Handbook Ch.7",
-      "lessons": [
-        { "id": "tokenization", "title": "Tokenization — the layer everyone skips then debugs", "badge": "HOT", "minutes": 10, "xp": 60, "widget": "tokencost" },
-        { "id": "attention-context", "title": "Attention & context limits — the O(n²) wall", "badge": "HOT", "minutes": 10, "xp": 60 },
-        { "id": "kv-cache", "title": "KV cache — the real inference memory bill", "badge": "HOT", "minutes": 11, "xp": 60, "widget": "kvcache" },
-        { "id": "lora-vs-rag", "title": "LoRA vs fine-tune vs RAG — the decision you make constantly", "badge": "HOT", "minutes": 10, "xp": 60 },
-        { "id": "hallucinations", "title": "Where hallucinations originate & layered mitigations", "badge": "HOT", "minutes": 9, "xp": 60 }
-      ]
+     "id": "logging-errors",
+     "title": "Logging & error handling for ML services",
+     "badge": "CORE",
+     "minutes": 9,
+     "xp": 45
     },
     {
-      "id": "08-inference-serving",
-      "title": "Inference & Serving Systems",
-      "badge": "HOT",
-      "chapter": "Handbook Ch.8",
-      "lessons": [
-        { "id": "batching", "title": "Batching: static → dynamic → continuous (in-flight)", "badge": "HOT", "minutes": 10, "xp": 60, "widget": "throughput" },
-        { "id": "streaming-latencies", "title": "Streaming & the two latencies: TTFT vs TPOT", "badge": "HOT", "minutes": 9, "xp": 60 },
-        { "id": "quantization", "title": "Quantization: INT8/INT4/FP8, PTQ vs QAT, GPTQ/AWQ", "badge": "HOT", "minutes": 11, "xp": 60 },
-        { "id": "vllm", "title": "vLLM — the reference serving engine", "badge": "HOT", "minutes": 9, "xp": 60 },
-        { "id": "cold-starts", "title": "Cold starts & the scale-to-zero trap", "badge": "CORE", "minutes": 7, "xp": 45 },
-        { "id": "gpu-vs-cpu", "title": "GPU vs CPU — choose by workload", "badge": "FOUNDATION", "minutes": 6, "xp": 30 },
-        { "id": "serving-harder", "title": "Why serving is harder than training (the tail is the product)", "badge": "CORE", "minutes": 8, "xp": 45 }
-      ]
+     "id": "testing-ml",
+     "title": "Testing & CI for ML code",
+     "badge": "CORE",
+     "minutes": 9,
+     "xp": 45,
+     "src": "content/tracks/ch02-python/testing-ml.md"
     },
     {
-      "id": "09-genai-rag",
-      "title": "Generative AI Engineering & RAG",
-      "badge": "HOT",
-      "chapter": "NEW — top market priority",
-      "lessons": [
-        { "id": "llm-app-fundamentals", "title": "LLM app fundamentals: APIs, prompting, structured outputs, tool calling", "badge": "HOT", "minutes": 11, "xp": 60 },
-        { "id": "embeddings-search", "title": "Embeddings & semantic search (cosine sim, ANN)", "badge": "HOT", "minutes": 10, "xp": 60 },
-        { "id": "vector-databases", "title": "Vector databases: FAISS, Chroma, pgvector, Pinecone, Weaviate/Milvus", "badge": "HOT", "minutes": 11, "xp": 60 },
-        { "id": "rag-pipeline", "title": "The RAG pipeline: load → chunk → embed → index → retrieve → rerank → generate → cite", "badge": "HOT", "minutes": 12, "xp": 60 },
-        { "id": "chunking", "title": "Chunking strategies & context optimization", "badge": "HOT", "minutes": 10, "xp": 60 },
-        { "id": "reranking-hybrid", "title": "Reranking & hybrid search (BM25 + dense + cross-encoder)", "badge": "HOT", "minutes": 10, "xp": 60 },
-        { "id": "advanced-rag", "title": "Advanced RAG: query rewriting, CRAG, Self-RAG, Agentic RAG", "badge": "HOT", "minutes": 12, "xp": 60 },
-        { "id": "graphrag", "title": "GraphRAG & knowledge graphs (Neo4j / Neptune; multi-hop)", "badge": "HOT", "minutes": 11, "xp": 60 },
-        { "id": "rag-evaluation", "title": "RAG evaluation (RAGAS: faithfulness, relevancy, context precision/recall)", "badge": "HOT", "minutes": 10, "xp": 60 },
-        { "id": "orchestration-frameworks", "title": "Orchestration: LangChain vs LlamaIndex vs LangGraph", "badge": "HOT", "minutes": 9, "xp": 60 },
-        { "id": "production-rag", "title": "Production RAG: freshness, chunk drift, cost, guardrails, caching", "badge": "HOT", "minutes": 11, "xp": 60 }
-      ]
+     "id": "numpy-pandas",
+     "title": "NumPy & Pandas: the daily drivers",
+     "badge": "CORE",
+     "minutes": 9,
+     "xp": 45
     },
     {
-      "id": "10-fine-tuning",
-      "title": "Fine-Tuning & Model Adaptation",
-      "badge": "HOT",
-      "chapter": "NEW — résumé gap: PEFT/LoRA/QLoRA",
-      "lessons": [
-        { "id": "prompt-rag-finetune", "title": "When to prompt vs RAG vs fine-tune (decision framework)", "badge": "HOT", "minutes": 9, "xp": 60 },
-        { "id": "sft-instruction", "title": "SFT & instruction tuning: data format & data quality", "badge": "HOT", "minutes": 10, "xp": 60 },
-        { "id": "peft-family", "title": "PEFT family: LoRA, QLoRA, adapters, prefix/prompt tuning", "badge": "HOT", "minutes": 11, "xp": 60 },
-        { "id": "hands-on-peft", "title": "Hands-on: transformers + peft + trl (SFTTrainer), 4-bit", "badge": "HOT", "minutes": 12, "xp": 60 },
-        { "id": "eval-finetune", "title": "Evaluating a fine-tune; forgetting; merging; swappable LoRAs", "badge": "HOT", "minutes": 10, "xp": 60 },
-        { "id": "alignment", "title": "Alignment overview: RLHF, DPO, why helpfulness-only rewards hallucinate", "badge": "CORE", "minutes": 9, "xp": 45 },
-        { "id": "distillation", "title": "Distillation as adaptation (student/teacher)", "badge": "CORE", "minutes": 8, "xp": 45 }
-      ]
+     "id": "sql-essentials",
+     "title": "SQL essentials every ML engineer needs",
+     "badge": "HOT",
+     "minutes": 9,
+     "xp": 60,
+     "src": "content/tracks/ch03-sql-data-eng/sql-essentials.md"
     },
     {
-      "id": "11-agents-mcp",
-      "title": "Agents, Tools & MCP",
-      "badge": "HOT",
-      "chapter": "NEW — résumé gap + Ch.12",
-      "lessons": [
-        { "id": "agent-loop", "title": "The agent loop (reason → tool → observe → loop/stop) & where it breaks", "badge": "HOT", "minutes": 10, "xp": 60 },
-        { "id": "compounding-error", "title": "The compounding-error math (0.95¹⁰ ≈ 60%)", "badge": "HOT", "minutes": 8, "xp": 60, "widget": "agenterror" },
-        { "id": "tools-memory-planning", "title": "Tool calling, memory, planning, multi-agent — capabilities & failures", "badge": "HOT", "minutes": 11, "xp": 60 },
-        { "id": "agent-frameworks", "title": "Frameworks: LangGraph vs CrewAI vs AutoGen", "badge": "HOT", "minutes": 9, "xp": 60 },
-        { "id": "mcp", "title": "Model Context Protocol (MCP): clients, servers, tools/resources", "badge": "HOT", "minutes": 10, "xp": 60 },
-        { "id": "agents-in-prod", "title": "Designing agents that survive production", "badge": "HOT", "minutes": 11, "xp": 60 },
-        { "id": "agent-eval", "title": "Agent evaluation & observability (traces, tool-success, task success)", "badge": "HOT", "minutes": 9, "xp": 60 }
-      ]
+     "id": "etl-elt",
+     "title": "ETL vs ELT & the modern data stack",
+     "badge": "CORE",
+     "minutes": 9,
+     "xp": 45,
+     "src": "content/tracks/ch03-sql-data-eng/etl-elt.md"
     },
     {
-      "id": "12-pipelines",
-      "title": "Pipelines & Data Infrastructure",
-      "badge": "CORE",
-      "chapter": "Handbook Ch.10",
-      "lessons": [
-        { "id": "feature-stores", "title": "Feature stores: offline vs online, materialization, point-in-time join", "badge": "HOT", "minutes": 10, "xp": 60 },
-        { "id": "need-feature-store", "title": "When you actually need a feature store (and when a SQL job is plenty)", "badge": "CORE", "minutes": 8, "xp": 45 },
-        { "id": "offline-online", "title": "Offline vs online data — the same value, two clocks", "badge": "CORE", "minutes": 8, "xp": 45 },
-        { "id": "backfills", "title": "Backfills & point-in-time correctness", "badge": "HOT", "minutes": 9, "xp": 60 },
-        { "id": "late-events", "title": "Late-arriving events, watermarks, windowing", "badge": "CORE", "minutes": 8, "xp": 45 },
-        { "id": "schema-evolution", "title": "Schema evolution (backward/forward/breaking; the silent unit bug)", "badge": "CORE", "minutes": 8, "xp": 45 },
-        { "id": "broken-joins", "title": "Broken joins & silent corruption; data contracts", "badge": "HOT", "minutes": 9, "xp": 60 }
-      ]
+     "id": "data-quality",
+     "title": "Data quality checks that catch real bugs",
+     "badge": "CORE",
+     "minutes": 9,
+     "xp": 45,
+     "src": "content/tracks/ch03-sql-data-eng/data-quality.md"
     },
     {
-      "id": "13-monitoring-cost",
-      "title": "Monitoring, Optimization & Cost Control",
-      "badge": "HOT",
-      "chapter": "Handbook Ch.11",
-      "lessons": [
-        { "id": "four-layers", "title": "The four monitoring layers & ground-truth lag", "badge": "CORE", "minutes": 9, "xp": 45 },
-        { "id": "drift-detection", "title": "Drift detection in production (reference → compare → alert)", "badge": "CORE", "minutes": 9, "xp": 45 },
-        { "id": "tail-latency", "title": "Latency, outliers & the tail (percentiles don't average)", "badge": "HOT", "minutes": 9, "xp": 60 },
-        { "id": "llm-monitoring", "title": "LLM-specific monitoring: token spend, hallucination rate, silent decay", "badge": "HOT", "minutes": 10, "xp": 60 },
-        { "id": "cost-toolkit", "title": "Cost toolkit: distillation, pruning, quantization, caching, routing", "badge": "HOT", "minutes": 11, "xp": 60 },
-        { "id": "cost-order", "title": "A sane cost-reduction order of operations", "badge": "HOT", "minutes": 8, "xp": 60 }
-      ]
+     "id": "vectors-matrices",
+     "title": "Vectors, dot product & cosine similarity",
+     "badge": "FOUNDATION",
+     "minutes": 9,
+     "xp": 30,
+     "src": "content/tracks/ch04-math-stats/vectors-matrices.md"
     },
     {
-      "id": "14-production-safety",
-      "title": "Production, Safety & Org Reality",
-      "badge": "HOT",
-      "chapter": "Handbook Ch.12",
-      "lessons": [
-        { "id": "agents-recap", "title": "Agents recap as a production system (links to Track 11)", "badge": "CORE", "minutes": 7, "xp": 45 },
-        { "id": "llm-security", "title": "LLM security/threat model: prompt injection, exfiltration, jailbreak + defenses", "badge": "HOT", "minutes": 12, "xp": 60 },
-        { "id": "security-principle", "title": "The core security principle: architecture beats wording", "badge": "HOT", "minutes": 9, "xp": 60 },
-        { "id": "deployment-ladder", "title": "Deployment: shadow → canary → progressive → rollback", "badge": "HOT", "minutes": 10, "xp": 60 },
-        { "id": "distributed-discipline", "title": "Distributed-systems discipline: queues, retries, idempotency, backpressure", "badge": "HOT", "minutes": 10, "xp": 60 },
-        { "id": "docs-operable", "title": "Documentation that makes a system operable: model cards, ADRs, runbooks", "badge": "CORE", "minutes": 8, "xp": 45 }
-      ]
+     "id": "probability-intuition",
+     "title": "Probability intuition for ML",
+     "badge": "CORE",
+     "minutes": 9,
+     "xp": 45,
+     "src": "content/tracks/ch04-math-stats/probability-intuition.md"
     },
     {
-      "id": "15-cloud-genai",
-      "title": "Cloud GenAI Platforms (free-tier oriented)",
-      "badge": "HOT",
-      "chapter": "NEW — résumé gap: AWS/GCP/Snowflake",
-      "lessons": [
-        { "id": "lay-of-land", "title": "The lay of the land: managed APIs vs training vs RAG vs agents on cloud", "badge": "CORE", "minutes": 8, "xp": 45 },
-        { "id": "aws-bedrock", "title": "AWS Bedrock: model access, Knowledge Bases, Agents, Guardrails", "badge": "HOT", "minutes": 11, "xp": 60 },
-        { "id": "aws-sagemaker", "title": "AWS SageMaker: training jobs, endpoints, Pipelines; S3/EC2 basics", "badge": "CORE", "minutes": 10, "xp": 45 },
-        { "id": "gcp-vertex", "title": "GCP Vertex AI: training, endpoints, RAG Engine, Agent Builder", "badge": "HOT", "minutes": 10, "xp": 60 },
-        { "id": "gemini-api", "title": "Gemini API & Gemini Enterprise: grounding, function calling, search", "badge": "HOT", "minutes": 10, "xp": 60 },
-        { "id": "bigquery-ml", "title": "BigQuery ML: train/predict in SQL", "badge": "CORE", "minutes": 8, "xp": 45 },
-        { "id": "snowflake-cortex", "title": "Snowflake Cortex: LLM functions, Cortex Search, Cortex Analyst, Snowpark", "badge": "CORE", "minutes": 9, "xp": 45 },
-        { "id": "mlops-glue", "title": "MLOps glue: MLflow, Docker, FastAPI serving, Terraform note", "badge": "HOT", "minutes": 11, "xp": 60 },
-        { "id": "free-tier-survival", "title": "Cost & free-tier survival guide (practice each platform for ₹0)", "badge": "CORE", "minutes": 7, "xp": 45 }
-      ]
+     "id": "optimization-basics",
+     "title": "Optimization basics: gradients, SGD, Adam",
+     "badge": "CORE",
+     "minutes": 9,
+     "xp": 45,
+     "src": "content/tracks/ch04-math-stats/optimization-basics.md"
     }
-  ],
-  "sections": [
-    { "id": "cheatsheet", "title": "⚡ Interview Cheatsheet", "badge": "HOT", "route": "#/cheatsheet", "note": "1-hour crash prep — 80-90% of hot topics" },
-    { "id": "system-design", "title": "ML/AI System Design", "badge": "HOT", "route": "#/system-design", "note": "Framework + 10 architecture deep-dives" },
-    { "id": "interview", "title": "Interview Mode", "badge": "HOT", "route": "#/interview", "note": "FAQ-100 · flashcards · mock drill" },
-    { "id": "projects", "title": "Projects & Portfolio", "badge": "CORE", "route": "#/projects", "note": "3 flagship build guides" },
-    { "id": "playground", "title": "Playground", "badge": "CORE", "route": "#/playground", "note": "All 7 interactive instruments" },
-    { "id": "glossary", "title": "Glossary", "badge": "FOUNDATION", "route": "#/glossary", "note": "Quick term lookup" }
-  ]
+   ]
+  },
+  {
+   "id": "t1-classical-ml",
+   "title": "Track 1 · Classical ML",
+   "badge": "CORE",
+   "chapter": "16 lessons",
+   "lessons": [
+    {
+     "id": "ml-framing",
+     "title": "Supervised / unsupervised / RL — with real examples",
+     "badge": "CORE",
+     "minutes": 9,
+     "xp": 45
+    },
+    {
+     "id": "bias-variance",
+     "title": "Bias–variance & overfitting: diagnose then fix",
+     "badge": "CORE",
+     "minutes": 9,
+     "xp": 45,
+     "widget": "biasvar",
+     "src": "content/tracks/03-statistics/bias-variance.md"
+    },
+    {
+     "id": "eda-workflow",
+     "title": "An EDA workflow that finds the story",
+     "badge": "CORE",
+     "minutes": 9,
+     "xp": 45,
+     "src": "content/tracks/ch05-eda-features/eda-workflow.md"
+    },
+    {
+     "id": "feature-types",
+     "title": "Feature engineering & leakage-safe pipelines",
+     "badge": "CORE",
+     "minutes": 9,
+     "xp": 45,
+     "src": "content/tracks/ch05-eda-features/feature-types.md"
+    },
+    {
+     "id": "leakage",
+     "title": "Leakage — the silent score inflator",
+     "badge": "HOT",
+     "minutes": 9,
+     "xp": 60,
+     "src": "content/tracks/02-data-reality/leakage.md"
+    },
+    {
+     "id": "linear-logistic",
+     "title": "Linear & logistic regression, done right",
+     "badge": "CORE",
+     "minutes": 9,
+     "xp": 45
+    },
+    {
+     "id": "tree-models",
+     "title": "Decision trees & random forests",
+     "badge": "CORE",
+     "minutes": 9,
+     "xp": 45,
+     "src": "content/tracks/ch06-classic-ml/tree-models.md"
+    },
+    {
+     "id": "boosting",
+     "title": "Gradient boosting (XGBoost/LightGBM) — the tabular king",
+     "badge": "HOT",
+     "minutes": 9,
+     "xp": 60,
+     "src": "content/tracks/ch06-classic-ml/boosting.md"
+    },
+    {
+     "id": "loss-zoo",
+     "title": "The loss zoo & objective design",
+     "badge": "CORE",
+     "minutes": 9,
+     "xp": 45,
+     "src": "content/tracks/04-losses/loss-zoo.md"
+    },
+    {
+     "id": "imbalance",
+     "title": "Class imbalance: SMOTE vs class weights",
+     "badge": "CORE",
+     "minutes": 9,
+     "xp": 45,
+     "src": "content/tracks/04-losses/imbalance.md"
+    },
+    {
+     "id": "accuracy-lies",
+     "title": "Metrics that matter: P/R/F1, ROC-AUC vs PR-AUC",
+     "badge": "HOT",
+     "minutes": 9,
+     "xp": 60,
+     "src": "content/tracks/03-statistics/accuracy-lies.md"
+    },
+    {
+     "id": "splitting-strategy",
+     "title": "Splitting strategy & cross-validation",
+     "badge": "CORE",
+     "minutes": 9,
+     "xp": 45,
+     "src": "content/tracks/ch08-validation-metrics/splitting-strategy.md"
+    },
+    {
+     "id": "error-analysis",
+     "title": "Error analysis: the highest-ROI hour in ML",
+     "badge": "HOT",
+     "minutes": 9,
+     "xp": 60,
+     "src": "content/tracks/ch08-validation-metrics/error-analysis.md"
+    },
+    {
+     "id": "clustering",
+     "title": "Clustering: k-means, DBSCAN, hierarchical",
+     "badge": "CORE",
+     "minutes": 9,
+     "xp": 45,
+     "src": "content/tracks/ch07-unsupervised/clustering.md"
+    },
+    {
+     "id": "dimensionality-reduction",
+     "title": "PCA, t-SNE, UMAP",
+     "badge": "CORE",
+     "minutes": 9,
+     "xp": 45,
+     "src": "content/tracks/ch07-unsupervised/dimensionality-reduction.md"
+    },
+    {
+     "id": "anomaly-detection",
+     "title": "Anomaly detection in production",
+     "badge": "HOT",
+     "minutes": 9,
+     "xp": 60,
+     "src": "content/tracks/ch07-unsupervised/anomaly-detection.md"
+    }
+   ]
+  },
+  {
+   "id": "t2-dl-transformers",
+   "title": "Track 2 · Deep Learning & Transformers",
+   "badge": "HOT",
+   "chapter": "11 lessons",
+   "lessons": [
+    {
+     "id": "neural-networks",
+     "title": "Neural networks — just enough",
+     "badge": "CORE",
+     "minutes": 9,
+     "xp": 45,
+     "src": "content/tracks/ch09-deep-learning/neural-networks.md"
+    },
+    {
+     "id": "backpropagation",
+     "title": "Backpropagation, intuitively",
+     "badge": "CORE",
+     "minutes": 9,
+     "xp": 45,
+     "src": "content/tracks/ch09-deep-learning/backpropagation.md"
+    },
+    {
+     "id": "optimization-dl",
+     "title": "Optimizers, epochs, batches & a tiny PyTorch net",
+     "badge": "CORE",
+     "minutes": 9,
+     "xp": 45
+    },
+    {
+     "id": "transformer-bridge",
+     "title": "The Transformer: self-attention, Q/K/V, multi-head",
+     "badge": "HOT",
+     "minutes": 9,
+     "xp": 60
+    },
+    {
+     "id": "tokenization",
+     "title": "Tokenization: BPE, WordPiece, SentencePiece",
+     "badge": "HOT",
+     "minutes": 9,
+     "xp": 60,
+     "widget": "tokencost",
+     "src": "content/tracks/07-llm-foundations/tokenization.md"
+    },
+    {
+     "id": "attention-context",
+     "title": "Attention & context limits — the O(n²) wall",
+     "badge": "HOT",
+     "minutes": 9,
+     "xp": 60,
+     "src": "content/tracks/07-llm-foundations/attention-context.md"
+    },
+    {
+     "id": "kv-cache",
+     "title": "KV cache — the real inference memory bill",
+     "badge": "HOT",
+     "minutes": 9,
+     "xp": 60,
+     "widget": "kvcache",
+     "src": "content/tracks/07-llm-foundations/kv-cache.md"
+    },
+    {
+     "id": "pretrained-hf",
+     "title": "Using pretrained models (Hugging Face)",
+     "badge": "HOT",
+     "minutes": 9,
+     "xp": 60
+    },
+    {
+     "id": "embeddings-search",
+     "title": "Embeddings & semantic search",
+     "badge": "HOT",
+     "minutes": 9,
+     "xp": 60,
+     "src": "content/tracks/09-genai-rag/embeddings-search.md"
+    },
+    {
+     "id": "gpu-memory-math",
+     "title": "GPU memory math & the 16-bytes/param rule",
+     "badge": "HOT",
+     "minutes": 9,
+     "xp": 60,
+     "widget": "vram",
+     "src": "content/tracks/01-core-ml/gpu-memory-math.md"
+    },
+    {
+     "id": "mixed-precision",
+     "title": "Mixed precision: fp16/bf16/fp8",
+     "badge": "HOT",
+     "minutes": 9,
+     "xp": 60,
+     "src": "content/tracks/01-core-ml/mixed-precision.md"
+    }
+   ]
+  },
+  {
+   "id": "t3-llms-finetuning",
+   "title": "Track 3 · LLMs, Prompting & Fine-Tuning",
+   "badge": "HOT",
+   "chapter": "13 lessons",
+   "lessons": [
+    {
+     "id": "lora-vs-rag",
+     "title": "Prompt vs RAG vs fine-tune — the decision",
+     "badge": "HOT",
+     "minutes": 9,
+     "xp": 60,
+     "src": "content/tracks/07-llm-foundations/lora-vs-rag.md"
+    },
+    {
+     "id": "prompt-structure",
+     "title": "Prompt engineering that survives production",
+     "badge": "HOT",
+     "minutes": 9,
+     "xp": 60
+    },
+    {
+     "id": "few-shot",
+     "title": "Few-shot, chain-of-thought & structured output",
+     "badge": "HOT",
+     "minutes": 9,
+     "xp": 60
+    },
+    {
+     "id": "prompt-injection-defense",
+     "title": "Prompt injection & defenses",
+     "badge": "HOT",
+     "minutes": 9,
+     "xp": 60
+    },
+    {
+     "id": "sampling-parameters",
+     "title": "Sampling: temperature, top-k, top-p",
+     "badge": "HOT",
+     "minutes": 9,
+     "xp": 60
+    },
+    {
+     "id": "hallucinations",
+     "title": "Where hallucinations come from",
+     "badge": "HOT",
+     "minutes": 9,
+     "xp": 60,
+     "src": "content/tracks/07-llm-foundations/hallucinations.md"
+    },
+    {
+     "id": "peft-family",
+     "title": "PEFT: LoRA, QLoRA, adapters",
+     "badge": "HOT",
+     "minutes": 9,
+     "xp": 60,
+     "src": "content/tracks/10-fine-tuning/peft-family.md"
+    },
+    {
+     "id": "hands-on-peft",
+     "title": "Hands-on QLoRA on a free GPU",
+     "badge": "HOT",
+     "minutes": 9,
+     "xp": 60,
+     "src": "content/tracks/10-fine-tuning/hands-on-peft.md"
+    },
+    {
+     "id": "sft-instruction",
+     "title": "SFT & instruction-tuning data quality",
+     "badge": "HOT",
+     "minutes": 9,
+     "xp": 60,
+     "src": "content/tracks/10-fine-tuning/sft-instruction.md"
+    },
+    {
+     "id": "eval-finetune",
+     "title": "Evaluating a fine-tune; catastrophic forgetting",
+     "badge": "HOT",
+     "minutes": 9,
+     "xp": 60,
+     "src": "content/tracks/10-fine-tuning/eval-finetune.md"
+    },
+    {
+     "id": "ollama-llamacpp",
+     "title": "Local LLMs: Ollama & llama.cpp (free)",
+     "badge": "HOT",
+     "minutes": 9,
+     "xp": 60
+    },
+    {
+     "id": "quantization",
+     "title": "Quantization: INT8/INT4/FP8, GGUF",
+     "badge": "HOT",
+     "minutes": 9,
+     "xp": 60,
+     "src": "content/tracks/08-inference-serving/quantization.md"
+    },
+    {
+     "id": "vllm",
+     "title": "Serving & cost: vLLM, batching, token math",
+     "badge": "HOT",
+     "minutes": 9,
+     "xp": 60,
+     "src": "content/tracks/08-inference-serving/vllm.md"
+    }
+   ]
+  },
+  {
+   "id": "t4-rag",
+   "title": "Track 4 · RAG: Basic → Agentic → GraphRAG",
+   "badge": "HOT",
+   "chapter": "11 lessons",
+   "lessons": [
+    {
+     "id": "rag-pipeline",
+     "title": "Why RAG & the canonical pipeline",
+     "badge": "HOT",
+     "minutes": 9,
+     "xp": 60,
+     "src": "content/tracks/09-genai-rag/rag-pipeline.md"
+    },
+    {
+     "id": "chunking",
+     "title": "Chunking 2.0: recursive, semantic, parent-child",
+     "badge": "HOT",
+     "minutes": 9,
+     "xp": 60,
+     "src": "content/tracks/09-genai-rag/chunking.md"
+    },
+    {
+     "id": "embeddings-rag",
+     "title": "Embeddings & similarity: cosine vs dot, Matryoshka",
+     "badge": "HOT",
+     "minutes": 9,
+     "xp": 60
+    },
+    {
+     "id": "vector-databases",
+     "title": "Vector DBs: FAISS, Chroma, pgvector, Pinecone",
+     "badge": "HOT",
+     "minutes": 9,
+     "xp": 60,
+     "src": "content/tracks/09-genai-rag/vector-databases.md"
+    },
+    {
+     "id": "reranking-hybrid",
+     "title": "Reranking & hybrid search (BM25 + dense + RRF)",
+     "badge": "HOT",
+     "minutes": 9,
+     "xp": 60,
+     "src": "content/tracks/09-genai-rag/reranking-hybrid.md"
+    },
+    {
+     "id": "query-transformation",
+     "title": "Query transformation: HyDE, decomposition",
+     "badge": "HOT",
+     "minutes": 9,
+     "xp": 60
+    },
+    {
+     "id": "advanced-rag",
+     "title": "Agentic & Corrective RAG (CRAG / Self-RAG)",
+     "badge": "HOT",
+     "minutes": 9,
+     "xp": 60,
+     "src": "content/tracks/09-genai-rag/advanced-rag.md"
+    },
+    {
+     "id": "graphrag",
+     "title": "GraphRAG & knowledge graphs (Neo4j)",
+     "badge": "HOT",
+     "minutes": 9,
+     "xp": 60,
+     "src": "content/tracks/09-genai-rag/graphrag.md"
+    },
+    {
+     "id": "sql-rag",
+     "title": "SQL + RAG: text-to-SQL over your warehouse",
+     "badge": "HOT",
+     "minutes": 9,
+     "xp": 60
+    },
+    {
+     "id": "rag-evaluation",
+     "title": "RAG evaluation (RAGAS) — the most-tested area",
+     "badge": "HOT",
+     "minutes": 9,
+     "xp": 60,
+     "src": "content/tracks/09-genai-rag/rag-evaluation.md"
+    },
+    {
+     "id": "production-rag",
+     "title": "Production RAG: freshness, caching, guardrails",
+     "badge": "HOT",
+     "minutes": 9,
+     "xp": 60,
+     "src": "content/tracks/09-genai-rag/production-rag.md"
+    }
+   ]
+  },
+  {
+   "id": "t5-agentic",
+   "title": "Track 5 · Agentic AI & Multi-Agent Systems",
+   "badge": "HOT",
+   "chapter": "10 lessons",
+   "lessons": [
+    {
+     "id": "agent-loop",
+     "title": "What an agent really is (the ReAct loop)",
+     "badge": "HOT",
+     "minutes": 9,
+     "xp": 60,
+     "src": "content/tracks/11-agents-mcp/agent-loop.md"
+    },
+    {
+     "id": "compounding-error",
+     "title": "The compounding-error math (0.95ⁿ)",
+     "badge": "HOT",
+     "minutes": 9,
+     "xp": 60,
+     "widget": "agenterror",
+     "src": "content/tracks/11-agents-mcp/compounding-error.md"
+    },
+    {
+     "id": "tools-memory-planning",
+     "title": "Tool calling, memory & planning",
+     "badge": "HOT",
+     "minutes": 9,
+     "xp": 60,
+     "src": "content/tracks/11-agents-mcp/tools-memory-planning.md"
+    },
+    {
+     "id": "agent-frameworks",
+     "title": "LangGraph vs CrewAI vs AutoGen",
+     "badge": "HOT",
+     "minutes": 9,
+     "xp": 60,
+     "src": "content/tracks/11-agents-mcp/agent-frameworks.md"
+    },
+    {
+     "id": "stategraph",
+     "title": "LangGraph: stateful graphs & cycles",
+     "badge": "HOT",
+     "minutes": 9,
+     "xp": 60
+    },
+    {
+     "id": "short-term-memory",
+     "title": "Memory: short-term vs long-term vs vector",
+     "badge": "HOT",
+     "minutes": 9,
+     "xp": 60
+    },
+    {
+     "id": "long-term-memory",
+     "title": "Long-term memory & summarization",
+     "badge": "HOT",
+     "minutes": 9,
+     "xp": 60
+    },
+    {
+     "id": "mcp",
+     "title": "Model Context Protocol (MCP)",
+     "badge": "HOT",
+     "minutes": 9,
+     "xp": 60,
+     "src": "content/tracks/11-agents-mcp/mcp.md"
+    },
+    {
+     "id": "agents-in-prod",
+     "title": "Designing agents that survive production",
+     "badge": "HOT",
+     "minutes": 9,
+     "xp": 60,
+     "src": "content/tracks/11-agents-mcp/agents-in-prod.md"
+    },
+    {
+     "id": "agent-eval",
+     "title": "Agent evaluation, tracing & guardrails",
+     "badge": "HOT",
+     "minutes": 9,
+     "xp": 60,
+     "src": "content/tracks/11-agents-mcp/agent-eval.md"
+    }
+   ]
+  },
+  {
+   "id": "t6-cloud-mlops",
+   "title": "Track 6 · Cloud, MLOps/LLMOps & Deployment",
+   "badge": "HOT",
+   "chapter": "11 lessons",
+   "lessons": [
+    {
+     "id": "fastapi-serving",
+     "title": "Serving with FastAPI (+ streaming)",
+     "badge": "HOT",
+     "minutes": 9,
+     "xp": 60
+    },
+    {
+     "id": "docker-ml",
+     "title": "Containers: Docker for ML services",
+     "badge": "HOT",
+     "minutes": 9,
+     "xp": 60
+    },
+    {
+     "id": "experiment-tracking",
+     "title": "MLOps: experiment tracking (MLflow)",
+     "badge": "HOT",
+     "minutes": 9,
+     "xp": 60
+    },
+    {
+     "id": "drift-detection",
+     "title": "Monitoring & drift detection",
+     "badge": "CORE",
+     "minutes": 9,
+     "xp": 45,
+     "src": "content/tracks/13-monitoring-cost/drift-detection.md"
+    },
+    {
+     "id": "llm-monitoring",
+     "title": "LLMOps: tracing, token spend, prompt versioning",
+     "badge": "HOT",
+     "minutes": 9,
+     "xp": 60,
+     "src": "content/tracks/13-monitoring-cost/llm-monitoring.md"
+    },
+    {
+     "id": "cost-toolkit",
+     "title": "Cost & latency: caching, routing, failover",
+     "badge": "HOT",
+     "minutes": 9,
+     "xp": 60,
+     "src": "content/tracks/13-monitoring-cost/cost-toolkit.md"
+    },
+    {
+     "id": "aws-bedrock",
+     "title": "AWS for AI: Bedrock & SageMaker (+ free path)",
+     "badge": "HOT",
+     "minutes": 9,
+     "xp": 60,
+     "src": "content/tracks/15-cloud-genai/aws-bedrock.md"
+    },
+    {
+     "id": "gcp-vertex",
+     "title": "GCP: Vertex AI, Gemini, BigQuery ML",
+     "badge": "HOT",
+     "minutes": 9,
+     "xp": 60,
+     "src": "content/tracks/15-cloud-genai/gcp-vertex.md"
+    },
+    {
+     "id": "snowflake-cortex",
+     "title": "Snowflake Cortex (+ free alternatives)",
+     "badge": "CORE",
+     "minutes": 9,
+     "xp": 45,
+     "src": "content/tracks/15-cloud-genai/snowflake-cortex.md"
+    },
+    {
+     "id": "llm-security",
+     "title": "Security & guardrails: OWASP LLM, PII, injection",
+     "badge": "HOT",
+     "minutes": 9,
+     "xp": 60,
+     "src": "content/tracks/14-production-safety/llm-security.md"
+    },
+    {
+     "id": "deployment-ladder",
+     "title": "Deployment: shadow → canary → rollback",
+     "badge": "HOT",
+     "minutes": 9,
+     "xp": 60,
+     "src": "content/tracks/14-production-safety/deployment-ladder.md"
+    }
+   ]
+  },
+  {
+   "id": "t7-systemdesign-capstones",
+   "title": "Track 7 · System Design, FAQ-100 & Capstones",
+   "badge": "HOT",
+   "chapter": "9 lessons",
+   "lessons": [
+    {
+     "id": "sysdesign-genai",
+     "title": "How GenAI system design differs",
+     "badge": "HOT",
+     "minutes": 9,
+     "xp": 60
+    },
+    {
+     "id": "sysdesign-framework",
+     "title": "The answer framework (use every time)",
+     "badge": "HOT",
+     "minutes": 9,
+     "xp": 60
+    },
+    {
+     "id": "requirement-framing",
+     "title": "Requirement framing & SLAs",
+     "badge": "HOT",
+     "minutes": 9,
+     "xp": 60
+    },
+    {
+     "id": "scaling-ml",
+     "title": "Scaling: caching, autoscaling, sharding",
+     "badge": "HOT",
+     "minutes": 9,
+     "xp": 60
+    },
+    {
+     "id": "failure-handling",
+     "title": "Failure handling & graceful degradation",
+     "badge": "HOT",
+     "minutes": 9,
+     "xp": 60
+    },
+    {
+     "id": "metrics-roi",
+     "title": "Business & product thinking: metrics & ROI",
+     "badge": "HOT",
+     "minutes": 9,
+     "xp": 60
+    },
+    {
+     "id": "project-ladder",
+     "title": "The capstone project ladder",
+     "badge": "HOT",
+     "minutes": 9,
+     "xp": 60
+    },
+    {
+     "id": "portfolio-structure",
+     "title": "Portfolio that gets callbacks",
+     "badge": "HOT",
+     "minutes": 9,
+     "xp": 60
+    },
+    {
+     "id": "mock-interviews",
+     "title": "Running effective mock interviews",
+     "badge": "CORE",
+     "minutes": 9,
+     "xp": 45
+    }
+   ]
+  },
+  {
+   "id": "t8-extended",
+   "title": "Track 8 · Extended Topics (optional)",
+   "badge": "FOUNDATION",
+   "chapter": "14 lessons",
+   "lessons": [
+    {
+     "id": "cv-fundamentals",
+     "title": "Computer Vision fundamentals",
+     "badge": "CORE",
+     "minutes": 9,
+     "xp": 45
+    },
+    {
+     "id": "cnn-architectures",
+     "title": "CNN architectures: ResNet → EfficientNet",
+     "badge": "CORE",
+     "minutes": 9,
+     "xp": 45
+    },
+    {
+     "id": "detection-segmentation",
+     "title": "Object detection & segmentation",
+     "badge": "CORE",
+     "minutes": 9,
+     "xp": 45
+    },
+    {
+     "id": "vision-transformers",
+     "title": "Vision Transformers & CLIP",
+     "badge": "CORE",
+     "minutes": 9,
+     "xp": 45
+    },
+    {
+     "id": "ts-fundamentals",
+     "title": "Time series fundamentals",
+     "badge": "CORE",
+     "minutes": 9,
+     "xp": 45
+    },
+    {
+     "id": "classical-forecasting",
+     "title": "Forecasting: ARIMA, Prophet",
+     "badge": "CORE",
+     "minutes": 9,
+     "xp": 45
+    },
+    {
+     "id": "ml-forecasting",
+     "title": "ML for forecasting & leakage traps",
+     "badge": "CORE",
+     "minutes": 9,
+     "xp": 45
+    },
+    {
+     "id": "recsys-fundamentals",
+     "title": "Recommender systems fundamentals",
+     "badge": "CORE",
+     "minutes": 9,
+     "xp": 45
+    },
+    {
+     "id": "two-tower",
+     "title": "Two-tower retrieval & ranking",
+     "badge": "HOT",
+     "minutes": 9,
+     "xp": 60
+    },
+    {
+     "id": "diffusion-models",
+     "title": "Diffusion models & image generation",
+     "badge": "CORE",
+     "minutes": 9,
+     "xp": 45
+    },
+    {
+     "id": "python-coding-round",
+     "title": "The Python coding round",
+     "badge": "HOT",
+     "minutes": 9,
+     "xp": 60
+    },
+    {
+     "id": "dsa-essentials",
+     "title": "DSA essentials for ML roles",
+     "badge": "CORE",
+     "minutes": 9,
+     "xp": 45
+    },
+    {
+     "id": "ml-from-scratch",
+     "title": "Implementing ML from scratch",
+     "badge": "HOT",
+     "minutes": 9,
+     "xp": 60
+    },
+    {
+     "id": "sql-coding-round",
+     "title": "The SQL coding round",
+     "badge": "HOT",
+     "minutes": 9,
+     "xp": 60
+    }
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "id": "study-plan",
+   "title": "📅 20-Day Study Plan",
+   "badge": "HOT",
+   "route": "#/study-plan",
+   "note": "1 hour/day · auto-tracked"
+  },
+  {
+   "id": "cheatsheet",
+   "title": "⚡ Interview Cheatsheet",
+   "badge": "HOT",
+   "route": "#/cheatsheet",
+   "note": "Crash prep — hot topics"
+  },
+  {
+   "id": "system-design",
+   "title": "🏗️ System Design Library",
+   "badge": "HOT",
+   "route": "#/system-design",
+   "note": "Framework + architectures"
+  },
+  {
+   "id": "interview",
+   "title": "🎯 FAQ-100 & Drill",
+   "badge": "HOT",
+   "route": "#/interview",
+   "note": "FAQ · flashcards · mock drill"
+  },
+  {
+   "id": "projects",
+   "title": "🚀 Capstone Projects",
+   "badge": "HOT",
+   "route": "#/projects",
+   "note": "Portfolio build guides"
+  },
+  {
+   "id": "playground",
+   "title": "🎛️ Playground",
+   "badge": "CORE",
+   "route": "#/playground",
+   "note": "7 interactive instruments"
+  },
+  {
+   "id": "glossary",
+   "title": "📖 Glossary",
+   "badge": "FOUNDATION",
+   "route": "#/glossary",
+   "note": "Quick term lookup"
+  }
+ ]
 }

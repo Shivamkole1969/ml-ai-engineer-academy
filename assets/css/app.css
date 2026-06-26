@@ -293,4 +293,91 @@
 .gloss-term { font-family:var(--font-display); font-weight:600; color:var(--accent); }
 .gloss-def { color:var(--ink-300); font-size:.92rem; }
 
+/* ==========================================================================
+   UI OVERHAUL — richer dashboard, animated hero, track grid, study plan
+   ========================================================================== */
+
+/* animated gradient text */
+.grad-text {
+  background:linear-gradient(110deg,#3ad6ff,#8b7bff,#3ad6ff);
+  background-size:220% auto; -webkit-background-clip:text; background-clip:text;
+  -webkit-text-fill-color:transparent; color:transparent;
+  animation:gradShift 6s linear infinite;
+}
+@keyframes gradShift { to { background-position:220% center; } }
+@media (prefers-reduced-motion: reduce){ .grad-text{ animation:none; } }
+[data-motion="off"] .grad-text { animation:none; }
+
+/* hero with aurora */
+.dash-hero { position:relative; overflow:hidden; display:flex; gap:24px; align-items:center; justify-content:space-between;
+  padding:34px; flex-wrap:wrap; border-radius:var(--radius);
+  background:var(--glass-bg); border:1px solid var(--glass-stroke); box-shadow:var(--shadow-glass);
+  backdrop-filter:blur(16px) saturate(135%); -webkit-backdrop-filter:blur(16px) saturate(135%); }
+.dash-hero::before { content:""; position:absolute; inset:0 0 auto 0; height:2px; background:var(--accent-grad); z-index:2; }
+.dash-hero-aurora {
+  position:absolute; inset:-40% -10% auto -10%; height:140%; z-index:0; pointer-events:none; opacity:.6;
+  background:
+    radial-gradient(40% 60% at 20% 30%, rgba(58,214,255,.35), transparent 60%),
+    radial-gradient(40% 60% at 80% 40%, rgba(139,123,255,.32), transparent 60%),
+    radial-gradient(50% 60% at 50% 90%, rgba(72,224,160,.18), transparent 60%);
+  filter:blur(28px); animation:aurora 14s ease-in-out infinite alternate;
+}
+@keyframes aurora { from { transform:translate3d(-3%,-2%,0) scale(1); } to { transform:translate3d(4%,3%,0) scale(1.12); } }
+@media (prefers-reduced-motion: reduce){ .dash-hero-aurora{ animation:none; } }
+[data-motion="off"] .dash-hero-aurora { animation:none; }
+.dash-hero-left, .dash-hero-right { position:relative; z-index:1; }
+.dash-title { font-size:2.7rem; line-height:1.1; }
+@media (max-width:680px){ .dash-title{ font-size:2rem; } }
+.readiness-big .ring { filter:drop-shadow(0 6px 20px rgba(58,214,255,.25)); }
+.btn-lg { padding:.7em 1.3em; font-size:.95rem; }
+
+/* stat tiles with glow */
+.stat-glow { position:relative; overflow:hidden; transition:transform var(--t-fast) var(--ease), border-color var(--t-fast); }
+.stat-glow::after { content:""; position:absolute; inset:auto -30% -60% -30%; height:80%;
+  background:radial-gradient(closest-side, rgba(58,214,255,.18), transparent); opacity:0; transition:opacity var(--t-base); }
+.stat-glow:hover { transform:translateY(-3px); border-color:rgba(140,170,255,.4); }
+.stat-glow:hover::after { opacity:1; }
+
+/* the track grid (all chapters) */
+.dash-map-head { display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-bottom:14px; }
+.track-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:14px; }
+.track-card { display:flex; flex-direction:column; gap:10px; padding:16px; color:var(--ink-100);
+  position:relative; overflow:hidden; transition:transform var(--t-base) var(--ease), border-color var(--t-base), box-shadow var(--t-base); }
+.track-card::before { content:""; position:absolute; inset:0 0 auto 0; height:2px; background:var(--accent-grad); opacity:0; transition:opacity var(--t-base); }
+.track-card:hover { transform:translateY(-4px); text-decoration:none; border-color:rgba(140,170,255,.45); box-shadow:0 12px 36px rgba(2,8,30,.5), 0 0 24px rgba(58,214,255,.12); }
+.track-card:hover::before { opacity:1; }
+.track-card-top { display:flex; align-items:center; justify-content:space-between; }
+.track-card-num { font-size:1.4rem; font-weight:600; color:var(--ink-500); }
+.track-card-title { font-family:var(--font-display); font-weight:600; font-size:1rem; line-height:1.3; min-height:2.6em; }
+.track-card-meta { font-size:.72rem; color:var(--ink-500); display:flex; align-items:center; gap:6px; }
+.tc-badge { font-size:.85rem; }
+.track-card-bar { height:4px; border-radius:3px; background:var(--bg-800); overflow:hidden; }
+.track-card-bar > span { display:block; height:100%; background:var(--accent-grad); border-radius:3px; transition:width 600ms var(--ease); }
+.mini-ring-num { fill:var(--ink-300); font-size:9px; font-weight:600; }
+.mini-ring circle { transition:stroke-dashoffset 700ms var(--ease); }
+@media (prefers-reduced-motion: reduce){ .track-card-bar>span, .mini-ring circle{ transition:none; } }
+
+/* ---- study plan ---------------------------------------------------------- */
+.plan-progress { display:flex; align-items:center; gap:12px; margin-top:14px; }
+.plan-progress-bar { flex:1; height:10px; border-radius:6px; background:var(--bg-800); overflow:hidden; border:1px solid var(--glass-stroke); }
+.plan-progress-fill { height:100%; background:var(--accent-grad); transition:width 700ms var(--ease); }
+.plan-days { display:flex; flex-direction:column; gap:10px; }
+.plan-day { padding:0; overflow:hidden; border-left:3px solid var(--glass-stroke); }
+.plan-day.is-complete { border-left-color:var(--ok); opacity:.85; }
+.plan-day summary { cursor:pointer; display:flex; align-items:center; gap:14px; padding:14px 18px; list-style:none; }
+.plan-day summary::-webkit-details-marker { display:none; }
+.plan-daynum { color:var(--accent); font-weight:600; flex:0 0 auto; width:3.6em; }
+.plan-day.is-complete .plan-daynum { color:var(--ok); }
+.plan-daytitle { flex:1; font-weight:500; color:var(--ink-100); }
+.plan-daystat { color:var(--ink-500); font-size:.8rem; }
+.plan-body { padding:0 18px 16px 18px; }
+.plan-lessons, .plan-tasks { list-style:none; margin:0 0 8px; padding:0; display:flex; flex-direction:column; gap:5px; }
+.plan-lesson { display:flex; gap:8px; color:var(--ink-300); font-size:.9rem; padding:3px 0; }
+.plan-lesson:hover { color:var(--ink-100); text-decoration:none; }
+.plan-lesson.is-done { color:var(--ink-500); }
+.plan-lesson.is-done .plan-dot { color:var(--ok); }
+.plan-dot { color:var(--ink-500); flex:0 0 auto; }
+.plan-task { color:var(--ink-300); font-size:.9rem; }
+.plan-note { color:var(--ink-500); font-size:.78rem; margin:8px 0 0; }
+
 /* ---- toast host already styled inline in gamify.js ----------------------- */

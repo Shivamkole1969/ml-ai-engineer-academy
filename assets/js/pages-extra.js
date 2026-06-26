@@ -130,6 +130,53 @@ export async function glossaryPage() {
 }
 
 /* ========================================================================== */
+/* STUDY PLAN — 20 days × 1 hour, auto-ticks as lessons complete              */
+/* ========================================================================== */
+export async function studyPlanPage() {
+  await loadCurriculum();
+  const data = await getJSON('./content/study-plan.json');
+  const s = store.get();
+  const titleOf = {};
+  (await loadCurriculum()).tracks.forEach((t) => t.lessons.forEach((l) => { titleOf[l.id] = l.title; }));
+
+  // overall progress
+  const allLessonIds = data.days.flatMap((d) => d.lessons);
+  const doneCount = allLessonIds.filter((id) => s.completed[id]).length;
+  const pct = allLessonIds.length ? Math.round((doneCount / allLessonIds.length) * 100) : 0;
+
+  const dayHtml = data.days.map((d) => {
+    const done = d.lessons.length ? d.lessons.filter((id) => s.completed[id]).length : 0;
+    const complete = d.lessons.length ? done === d.lessons.length : false;
+    const lessonsHtml = d.lessons.map((id) => `<li><a href="#/lesson/${id}" class="plan-lesson ${s.completed[id] ? 'is-done' : ''}">
+      <span class="plan-dot">${s.completed[id] ? '✓' : '○'}</span>${esc(titleOf[id] || id)}</a></li>`).join('');
+    const tasksHtml = (d.tasks || []).map((t) => `<li class="plan-task">▸ ${esc(t)}</li>`).join('');
+    return `<details class="glass plan-day ${complete ? 'is-complete' : ''}" ${complete ? '' : 'open'}>
+      <summary>
+        <span class="plan-daynum mono">Day ${d.day}</span>
+        <span class="plan-daytitle">${esc(d.title)}</span>
+        <span class="plan-daystat mono">${d.lessons.length ? `${done}/${d.lessons.length}` : (d.route ? '→' : '')}${complete ? ' ✓' : ''}</span>
+      </summary>
+      <div class="plan-body">
+        ${lessonsHtml ? `<ul class="plan-lessons">${lessonsHtml}</ul>` : ''}
+        ${tasksHtml ? `<ul class="plan-tasks">${tasksHtml}</ul>` : ''}
+        ${d.route ? `<a class="btn" href="${d.route}">Open →</a>` : ''}
+        ${d.note ? `<p class="plan-note mono">${esc(d.note)}</p>` : ''}
+      </div></details>`;
+  }).join('');
+
+  return el(`<main class="page" role="main">
+    <header class="glass glass-hero" style="padding:24px">
+      <p class="eyebrow mono">// 20 days · 1 hour/day</p>
+      <h1>📅 Your Study Plan</h1>
+      <p class="lede">${esc(data.intro)}</p>
+      <div class="plan-progress"><div class="plan-progress-bar"><div class="plan-progress-fill" style="width:${pct}%"></div></div>
+        <span class="mono">${doneCount}/${allLessonIds.length} lessons · ${pct}%</span></div>
+    </header>
+    <section class="plan-days">${dayHtml}</section>
+  </main>`);
+}
+
+/* ========================================================================== */
 /* CHEATSHEET — 1-hour interview crash prep                                   */
 /* ========================================================================== */
 export async function cheatsheetPage() {

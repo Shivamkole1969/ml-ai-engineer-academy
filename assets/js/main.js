@@ -160,6 +160,7 @@ function registerRoutes() {
   route('#/', pages.dashboardPage);
   route('#/track/:trackId', pages.trackPage);
   route('#/lesson/:id', pages.lessonPage);
+  route('#/study-plan', extra.studyPlanPage);
   route('#/cheatsheet', extra.cheatsheetPage);
   route('#/system-design', extra.systemDesignIndex);
   route('#/system-design/:archId', extra.systemDesignArch);

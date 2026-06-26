@@ -62,56 +62,98 @@ export async function dashboardPage() {
   const nextRec = lessons.find((l) => !s.completed[l.id] && (l.badge === 'HOT')) || lessons.find((l) => !s.completed[l.id]);
   const hot = lessons.filter((l) => l.badge === 'HOT' && !s.completed[l.id]).slice(0, 3);
 
+  const trackCards = CURRICULUM.tracks.map((t, i) => {
+    const p = trackProgress(t);
+    const m = BADGE_META[t.badge] || BADGE_META.CORE;
+    return `<a class="track-card glass" href="#/track/${t.id}" style="--i:${i}">
+      <div class="track-card-top">
+        <span class="track-card-num mono">${String(i + 1).padStart(2, '0')}</span>
+        ${miniRing(p.pct)}
+      </div>
+      <span class="track-card-title">${escapeHtml(t.title)}</span>
+      <span class="track-card-meta mono"><span class="tc-badge ${m.cls}">${m.icon}</span> ${p.done}/${p.total} lessons</span>
+      <span class="track-card-bar"><span style="width:${p.pct}%"></span></span>
+    </a>`;
+  }).join('');
+
   const node = el(`<main class="page page-dash" role="main">
-    <header class="dash-hero glass glass-hero reveal">
+    <header class="dash-hero glass-hero reveal">
+      <div class="dash-hero-aurora" aria-hidden="true"></div>
       <div class="dash-hero-left">
-        <p class="eyebrow mono">// mission status</p>
-        <h1>Welcome back, engineer</h1>
-        <p class="lede">Turn résumé claims into real skill. Depth where Pune &amp; remote-India jobs actually pay —
-        RAG, agents, fine-tuning, serving, cloud GenAI.</p>
+        <p class="eyebrow mono">// your AI/ML engineering journey</p>
+        <h1 class="dash-title">Become a <span class="grad-text">production AI/ML engineer</span></h1>
+        <p class="lede">A complete, hands-on path — from Python, SQL &amp; classic ML to deep learning, LLMs,
+        RAG, agents, MLOps and system design. Learn by reading, poking live instruments, and drilling interviews.</p>
         <div class="dash-cta">
-          ${nextRec ? `<a class="btn btn-accent" href="#/lesson/${nextRec.id}">▶ ${lastLesson ? 'Continue' : 'Start'}: ${escapeHtml(nextRec.title)}</a>` : ''}
-          <a class="btn" href="#/cheatsheet">⚡ 1-hour cram sheet</a>
-          <button class="btn" data-act="focus">Focus first (🔥 + ⭐)</button>
+          ${nextRec ? `<a class="btn btn-accent btn-lg" href="#/lesson/${nextRec.id}">▶ ${lastLesson ? 'Continue' : 'Start learning'}</a>` : ''}
+          <a class="btn btn-lg" href="#/study-plan">📅 Study plan</a>
+          <a class="btn btn-lg" href="#/cheatsheet">⚡ Cheatsheet</a>
         </div>
       </div>
       <div class="dash-hero-right">
-        ${ring(r, 120, 'readiness')}
+        <div class="readiness-big">${ring(r, 150, 'readiness')}</div>
         <span class="dash-ring-label mono">Readiness</span>
       </div>
     </header>
 
     <section class="dash-stats reveal">
-      <div class="glass stat"><span class="stat-num mono">${xp.streak}</span><span class="stat-lbl">🔥 day streak</span></div>
-      <div class="glass stat"><span class="stat-num mono">${xp.xp}</span><span class="stat-lbl">XP · Lvl ${xp.level}</span></div>
-      <div class="glass stat"><span class="stat-num mono">${completedCount}/${lessons.length}</span><span class="stat-lbl">lessons done</span></div>
-      <div class="glass stat"><span class="stat-num mono">⌘K</span><span class="stat-lbl">search anything</span></div>
+      <div class="glass stat stat-glow"><span class="stat-num mono" data-count="${xp.streak}">0</span><span class="stat-lbl">🔥 day streak</span></div>
+      <div class="glass stat stat-glow"><span class="stat-num mono" data-count="${xp.xp}">0</span><span class="stat-lbl">✦ XP · Lvl ${xp.level}</span></div>
+      <div class="glass stat stat-glow"><span class="stat-num mono" data-count="${completedCount}">0</span><span class="stat-lbl">/ ${lessons.length} lessons</span></div>
+      <div class="glass stat stat-glow"><span class="stat-num mono" data-count="${CURRICULUM.tracks.length}">0</span><span class="stat-lbl">chapters to master</span></div>
     </section>
 
-    <section class="dash-spotlight glass reveal">
-      <h2>🔥 Hot-topic spotlight</h2>
-      <p class="lede">Highest hiring demand &amp; salary premium for 2026. Spend energy here first.</p>
+    ${hot.length ? `<section class="dash-spotlight glass reveal">
+      <h2>🔥 Start here — highest-impact topics</h2>
       <div class="spot-cards">
         ${hot.map((l) => `<a class="spot-card glass" href="#/lesson/${l.id}">
           ${badgePill(l.badge)}<span class="spot-title">${escapeHtml(l.title)}</span>
-          <span class="spot-track mono">${escapeHtml(l.trackTitle)} · ${l.minutes}m</span></a>`).join('') || '<p>All hot lessons complete — you legend.</p>'}
+          <span class="spot-track mono">${escapeHtml(l.trackTitle)} · ${l.minutes}m</span></a>`).join('')}
       </div>
-    </section>
+    </section>` : ''}
 
-    <section class="dash-path glass reveal">
-      <h2>Your recommended path</h2>
-      <ol class="path-list">
-        <li><strong>Refresh fast:</strong> Core ML (mem math, mixed precision) → Data (leakage/drift) → Stats (calibration, PR-AUC) → decision-driven eval.</li>
-        <li><strong>Go deep where the jobs are:</strong> LLM Foundations → Serving → <strong>RAG</strong> → <strong>Fine-tuning</strong> → <strong>Agents/MCP</strong> → Monitoring → Safety.</li>
-        <li><strong>Round out the platform story:</strong> Pipelines (feature store/skew) → Cloud GenAI (AWS/GCP/Snowflake, free-tier).</li>
-        <li><strong>Make it hireable:</strong> System Design → build the 3 projects → drill FAQ-100/flashcards alongside.</li>
-      </ol>
+    <section class="dash-map reveal">
+      <div class="dash-map-head">
+        <h2>The full curriculum · ${CURRICULUM.tracks.length} chapters</h2>
+        <button class="btn" data-act="focus">⚡ Jump to 🔥 topics</button>
+      </div>
+      <div class="track-grid">${trackCards}</div>
     </section>
   </main>`);
 
-  node.querySelector('[data-act="focus"]').addEventListener('click', () => { location.hash = '#/track/' + CURRICULUM.tracks.find((t) => t.badge === 'HOT').id; });
+  node.querySelector('[data-act="focus"]').addEventListener('click', () => {
+    location.hash = '#/track/' + (CURRICULUM.tracks.find((t) => t.badge === 'HOT') || CURRICULUM.tracks[0]).id;
+  });
   staggerReveal(node);
+  countUp(node);
   return node;
+}
+
+/* small ring for track cards */
+function miniRing(pct, size = 38) {
+  const r = (size - 6) / 2, c = 2 * Math.PI * r, off = c * (1 - pct / 100);
+  return `<svg class="mini-ring" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" aria-hidden="true">
+    <circle cx="${size / 2}" cy="${size / 2}" r="${r}" fill="none" stroke="var(--glass-stroke)" stroke-width="4"/>
+    <circle cx="${size / 2}" cy="${size / 2}" r="${r}" fill="none" stroke="url(#rg)" stroke-width="4" stroke-linecap="round"
+      stroke-dasharray="${c}" stroke-dashoffset="${off}" transform="rotate(-90 ${size / 2} ${size / 2})"/>
+    <text x="50%" y="50%" text-anchor="middle" dy=".35em" class="mini-ring-num mono">${pct}</text></svg>`;
+}
+
+/* count-up animation for stat tiles (reduced-motion safe) */
+function countUp(node) {
+  const motionOff = document.documentElement.getAttribute('data-motion') === 'off'
+    || matchMedia('(prefers-reduced-motion: reduce)').matches;
+  node.querySelectorAll('[data-count]').forEach((elm) => {
+    const target = +elm.dataset.count;
+    if (motionOff || target <= 0) { elm.textContent = target; return; }
+    const dur = 700, t0 = performance.now();
+    const tick = (t) => {
+      const k = Math.min(1, (t - t0) / dur);
+      elm.textContent = Math.round(target * (1 - Math.pow(1 - k, 3)));
+      if (k < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  });
 }
 
 /* ========================================================================== */
@@ -168,7 +210,8 @@ export async function lessonPage({ id }) {
   try {
     let raw = lessonCache.get(id);
     if (raw == null) {
-      const res = await fetch(`./content/tracks/${lesson.trackId}/${id}.md`);
+      const path = lesson.src ? `./${lesson.src}` : `./content/tracks/${lesson.trackId}/${id}.md`;
+      const res = await fetch(path);
       if (!res.ok) throw new Error('not found');
       raw = await res.text();
       lessonCache.set(id, raw);
