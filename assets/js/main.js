@@ -1,62 +1,206 @@
 /* ============================================================================
-   main.js — bootstrap. (Phase 0: mission-control hello + 3D field + theme.)
-   Phase 1 will mount the router, store, layout, and command palette here.
+   main.js — bootstrap: shell layout, router, sidebar, top bar, settings,
+   command palette. (Phase 1: app shell & engine.)
    ========================================================================== */
 import { initBg3d, refresh as refreshBg } from './bg3d.js';
+import { store } from './store.js';
+import { route, setNotFound, startRouter, navigate, setOnNavigate } from './router.js';
+import { registerDocs, initPaletteHotkey, openPalette } from './search.js';
+import { xpSummary } from './gamify.js';
+import * as pages from './pages.js';
+import { badgePill } from './components.js';
 
-const THEME_KEY = 'mlacademy.theme';
-const MOTION_KEY = 'mlacademy.motion';
-
-/* ---- theme / motion (minimal; store.js takes this over in Phase 1) ------- */
-function applyTheme(theme) {
-  document.documentElement.setAttribute('data-theme', theme);
-  try { localStorage.setItem(THEME_KEY, theme); } catch (e) {}
+/* ---- prefs --------------------------------------------------------------- */
+function applyPrefs() {
+  const s = store.get();
+  document.documentElement.setAttribute('data-theme', s.theme);
+  document.documentElement.setAttribute('data-motion', s.motion);
+  document.documentElement.setAttribute('data-bg3d', s.bg3d);
 }
-function applyMotion(off) {
-  document.documentElement.setAttribute('data-motion', off ? 'off' : 'on');
-  try { localStorage.setItem(MOTION_KEY, off ? 'off' : 'on'); } catch (e) {}
-  refreshBg();
+function toggleTheme() {
+  store.set('theme', store.get().theme === 'light' ? 'dark' : 'light');
+  applyPrefs(); refreshBg(); syncTopbar();
 }
-function initPrefs() {
-  let theme = 'dark';
-  try { theme = localStorage.getItem(THEME_KEY) || 'dark'; } catch (e) {}
-  applyTheme(theme);
-  let motionOff = false;
-  try { motionOff = localStorage.getItem(MOTION_KEY) === 'off'; } catch (e) {}
-  if (motionOff) document.documentElement.setAttribute('data-motion', 'off');
+function toggleMotion() {
+  store.set('motion', store.get().motion === 'off' ? 'on' : 'off');
+  applyPrefs(); refreshBg(); syncSettingsLabels();
+}
+function toggleBg3d() {
+  store.set('bg3d', store.get().bg3d === 'off' ? 'on' : 'off');
+  applyPrefs(); refreshBg(); syncSettingsLabels();
 }
 
-/* ---- Phase-0 boot screen ------------------------------------------------- */
-function renderBoot() {
+/* ---- shell --------------------------------------------------------------- */
+const esc = (s = '') => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+function buildShell() {
   const app = document.getElementById('app');
-  if (!app) return;
   app.innerHTML = `
-    <main class="boot" role="main">
-      <section class="glass glass-hero boot-card reveal" aria-labelledby="boot-title">
-        <p class="eyebrow">// systems online</p>
-        <h1 id="boot-title">ML/AI Engineer Academy</h1>
-        <p class="lede">Production-grade ML/AI engineering — from first principles to
-        interview &amp; on-call mastery. A calm mission-control HUD for shipping models.</p>
-        <p>
-          <button class="btn btn-accent" id="theme-toggle" type="button">☼ / ☾ Toggle theme</button>
-          <button class="btn" id="motion-toggle" type="button">Reduce motion</button>
-        </p>
-        <p class="boot-stat">Phase 0 · scaffold &amp; deploy skeleton · 3D field active</p>
-      </section>
-    </main>`;
+    <a class="sr-only skip" href="#view">Skip to content</a>
+    <header id="topbar" class="glass">
+      <button class="icon-btn sidebar-burger" data-act="burger" aria-label="Toggle menu">☰</button>
+      <a class="brand" href="#/"><span class="brand-mark mono">‹/›</span> <span class="brand-name">ML/AI Academy</span></a>
+      <button class="topbar-search mono" data-act="search" aria-label="Search (Command-K)">
+        <span>Search…</span><kbd>⌘K</kbd></button>
+      <div class="topbar-stats mono">
+        <span class="t-streak" title="Day streak">🔥 <b data-stat="streak">0</b></span>
+        <span class="t-xp" title="XP and level">✦ <b data-stat="xp">0</b> · L<b data-stat="lvl">1</b></span>
+        <button class="icon-btn" data-act="theme" aria-label="Toggle theme">☼/☾</button>
+        <button class="icon-btn" data-act="settings" aria-label="Settings">⚙</button>
+      </div>
+    </header>
+    <div id="layout">
+      <aside id="sidebar" class="glass" aria-label="Curriculum"><nav data-sidebar></nav></aside>
+      <div id="view" tabindex="-1"></div>
+    </div>
+    <div id="settings-panel" class="glass" hidden role="dialog" aria-label="Settings"></div>
+    <div id="scrim" hidden></div>`;
 
-  document.getElementById('theme-toggle').addEventListener('click', () => {
-    const cur = document.documentElement.getAttribute('data-theme');
-    applyTheme(cur === 'light' ? 'dark' : 'light');
-    refreshBg();
+  app.querySelector('[data-act="search"]').addEventListener('click', openPalette);
+  app.querySelector('[data-act="theme"]').addEventListener('click', toggleTheme);
+  app.querySelector('[data-act="settings"]').addEventListener('click', toggleSettings);
+  app.querySelector('[data-act="burger"]').addEventListener('click', toggleSidebar);
+  app.querySelector('#scrim').addEventListener('click', () => { closeSidebar(); closeSettings(); });
+}
+
+function buildSidebar(curriculum) {
+  const s = store.get();
+  const nav = document.querySelector('[data-sidebar]');
+  const trackHtml = curriculum.tracks.map((t) => {
+    const expanded = !!s.sidebar[t.id];
+    const lessons = t.lessons || [];
+    const done = lessons.filter((l) => s.completed[l.id]).length;
+    const pct = lessons.length ? Math.round((done / lessons.length) * 100) : 0;
+    return `<div class="side-track" data-track="${t.id}">
+      <button class="side-track-head" data-toggle="${t.id}" aria-expanded="${expanded}">
+        <span class="side-caret">${expanded ? '▾' : '▸'}</span>
+        <span class="side-track-title">${esc(t.title)}</span>
+        <span class="side-mini-ring mono" style="--p:${pct}">${pct}%</span>
+      </button>
+      <ul class="side-lessons" ${expanded ? '' : 'hidden'}>
+        ${lessons.map((l) => `<li><a href="#/lesson/${l.id}" class="side-lesson ${s.completed[l.id] ? 'is-done' : ''}">
+          <span class="side-dot">${s.completed[l.id] ? '✓' : '•'}</span>${esc(l.title)}</a></li>`).join('')}
+      </ul></div>`;
+  }).join('');
+
+  const sectionHtml = curriculum.sections.map((sec) =>
+    `<a class="side-section" href="${sec.route}">${esc(sec.title)} ${badgePill(sec.badge)}</a>`).join('');
+
+  nav.innerHTML = `
+    <a class="side-home" href="#/">⌂ Dashboard</a>
+    <div class="side-label mono">TRACKS</div>
+    ${trackHtml}
+    <div class="side-label mono">SECTIONS</div>
+    ${sectionHtml}`;
+
+  nav.querySelectorAll('[data-toggle]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const id = btn.dataset.toggle;
+      const open = !store.get().sidebar[id];
+      store.update((st) => { st.sidebar[id] = open; });
+      const ul = btn.parentElement.querySelector('.side-lessons');
+      ul.hidden = !open;
+      btn.setAttribute('aria-expanded', String(open));
+      btn.querySelector('.side-caret').textContent = open ? '▾' : '▸';
+    });
   });
-  document.getElementById('motion-toggle').addEventListener('click', () => {
-    const off = document.documentElement.getAttribute('data-motion') !== 'off';
-    applyMotion(off);
+}
+
+/* ---- top bar / sidebar sync --------------------------------------------- */
+function syncTopbar() {
+  const x = xpSummary();
+  const set = (k, v) => { const e = document.querySelector(`[data-stat="${k}"]`); if (e) e.textContent = v; };
+  set('streak', x.streak); set('xp', x.xp); set('lvl', x.level);
+}
+function highlightActive(hash) {
+  document.querySelectorAll('.side-lesson, .side-section, .side-home').forEach((a) => {
+    a.classList.toggle('is-active', a.getAttribute('href') === hash);
   });
+}
+
+/* ---- settings panel ------------------------------------------------------ */
+function toggleSettings() {
+  const p = document.getElementById('settings-panel');
+  if (p.hidden) openSettings(); else closeSettings();
+}
+function openSettings() {
+  const s = store.get();
+  const p = document.getElementById('settings-panel');
+  p.innerHTML = `
+    <h3>Settings</h3>
+    <label class="set-row"><span>Theme</span>
+      <button class="btn" data-act="theme2">${s.theme === 'light' ? 'Light ☼' : 'Dark ☾'}</button></label>
+    <label class="set-row"><span>Reduce motion</span>
+      <button class="btn" data-act="motion">${s.motion === 'off' ? 'On (motion off)' : 'Off'}</button></label>
+    <label class="set-row"><span>3D background</span>
+      <button class="btn" data-act="bg3d">${s.bg3d === 'off' ? 'Disabled' : 'Enabled'}</button></label>
+    <p class="mono set-note">Progress is saved locally in this browser. No accounts, no tracking.</p>
+    <button class="btn" data-act="close-set">Close</button>`;
+  p.hidden = false;
+  document.getElementById('scrim').hidden = false;
+  p.querySelector('[data-act="theme2"]').addEventListener('click', () => { toggleTheme(); openSettings(); });
+  p.querySelector('[data-act="motion"]').addEventListener('click', () => { toggleMotion(); openSettings(); });
+  p.querySelector('[data-act="bg3d"]').addEventListener('click', () => { toggleBg3d(); openSettings(); });
+  p.querySelector('[data-act="close-set"]').addEventListener('click', closeSettings);
+}
+function closeSettings() {
+  document.getElementById('settings-panel').hidden = true;
+  if (document.getElementById('sidebar').classList.contains('open') === false) document.getElementById('scrim').hidden = true;
+}
+function syncSettingsLabels() { if (!document.getElementById('settings-panel').hidden) openSettings(); }
+
+/* ---- mobile sidebar ------------------------------------------------------ */
+function toggleSidebar() { document.getElementById('sidebar').classList.contains('open') ? closeSidebar() : openSidebar(); }
+function openSidebar() { document.getElementById('sidebar').classList.add('open'); document.getElementById('scrim').hidden = false; }
+function closeSidebar() { document.getElementById('sidebar').classList.remove('open'); if (document.getElementById('settings-panel').hidden) document.getElementById('scrim').hidden = true; }
+
+/* ---- routes -------------------------------------------------------------- */
+function registerRoutes() {
+  route('#/', pages.dashboardPage);
+  route('#/track/:trackId', pages.trackPage);
+  route('#/lesson/:id', pages.lessonPage);
+  route('#/system-design', pages.comingSoon('ML/AI System Design', 'A framework for answering design questions + 10 architecture deep-dives with SVG diagrams. Landing in Phase 4.'));
+  route('#/system-design/:archId', pages.comingSoon('System Design — architecture', 'This architecture deep-dive is being authored (Phase 4).'));
+  route('#/interview', pages.comingSoon('Interview Mode', 'FAQ-100, spaced-repetition flashcards, and a mock drill with Pune/remote-India tips. Landing in Phase 5.'));
+  route('#/projects', pages.comingSoon('Projects & Portfolio', 'Three flagship, step-by-step build guides mapped to real résumé claims. Landing in Phase 5.'));
+  route('#/glossary', pages.comingSoon('Glossary', 'Quick term lookup across the whole curriculum. Landing in Phase 5.'));
+  route('#/playground', pages.comingSoon('Playground', 'An index of the interactive instrument widgets.'));
+  setNotFound(pages.comingSoon('Lost in space', 'That route does not exist yet. Head back to the dashboard.'));
+
+  setOnNavigate((hash) => {
+    highlightActive(hash);
+    closeSidebar();
+    syncTopbar();
+  });
+}
+
+/* ---- search docs --------------------------------------------------------- */
+function registerSearch(curriculum) {
+  const docs = [];
+  curriculum.tracks.forEach((t) => (t.lessons || []).forEach((l) =>
+    docs.push({ id: 'lesson:' + l.id, title: l.title, sub: t.title, route: '#/lesson/' + l.id, body: (l.tags || []).join(' '), kind: 'lesson' })));
+  curriculum.tracks.forEach((t) =>
+    docs.push({ id: 'track:' + t.id, title: t.title, sub: t.chapter || 'Track', route: '#/track/' + t.id, body: '', kind: 'section' }));
+  curriculum.sections.forEach((sec) =>
+    docs.push({ id: 'sec:' + sec.id, title: sec.title, sub: sec.note || '', route: sec.route, body: '', kind: 'section' }));
+  registerDocs(docs);
 }
 
 /* ---- boot ---------------------------------------------------------------- */
-initPrefs();
-renderBoot();
-initBg3d();
+async function boot() {
+  applyPrefs();
+  buildShell();
+  const curriculum = await pages.loadCurriculum();
+  buildSidebar(curriculum);
+  registerSearch(curriculum);
+  registerRoutes();
+  initPaletteHotkey();
+  syncTopbar();
+
+  window.addEventListener('mla:progress', () => { buildSidebar(curriculum); syncTopbar(); highlightActive(location.hash || '#/'); });
+
+  startRouter();
+  initBg3d();
+}
+
+boot();
