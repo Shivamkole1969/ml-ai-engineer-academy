@@ -213,6 +213,30 @@ export async function cheatsheetPage() {
 }
 
 /* ========================================================================== */
+/* MY PROJECTS — STAR-format revision of the owner's real portfolio           */
+/* ========================================================================== */
+export async function myProjectsPage() {
+  let html, missing = false;
+  try { html = await renderMarkdown(await (await fetch('./content/my-projects.md')).text()); }
+  catch (e) { missing = true; }
+  const node = el(`<main class="page page-lesson" role="main">
+    <article class="lesson glass">
+      <header class="lesson-header">
+        <p class="eyebrow mono">// your portfolio, interview-ready</p>
+        <h1>🛠️ My Projects (STAR)</h1>
+        <div class="lesson-tags">${badgePill('HOT')}<span class="badge">revise before interviews</span></div>
+      </header>
+      <div class="lesson-body" data-body></div>
+      <footer class="lesson-foot"><a class="btn" href="#/interview">Drill FAQ-100 →</a><a class="btn" href="#/cheatsheet">⚡ Cheatsheet →</a></footer>
+    </article></main>`);
+  const body = node.querySelector('[data-body]');
+  if (missing) { body.innerHTML = '<div class="lesson-soon"><p>Project notes are being authored.</p></div>'; return node; }
+  body.innerHTML = html;
+  await hydrate(body);
+  return node;
+}
+
+/* ========================================================================== */
 /* PLAYGROUND — index of the interactive instruments                          */
 /* ========================================================================== */
 const WIDGETS = [

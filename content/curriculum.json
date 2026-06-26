@@ -930,6 +930,13 @@
    "note": "Crash prep — hot topics"
   },
   {
+   "id": "my-projects",
+   "title": "🛠️ My Projects (STAR)",
+   "badge": "HOT",
+   "route": "#/my-projects",
+   "note": "Your portfolio, interview-ready"
+  },
+  {
    "id": "system-design",
    "title": "🏗️ System Design Library",
    "badge": "HOT",

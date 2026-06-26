@@ -164,6 +164,7 @@ function registerRoutes() {
   route('#/lesson/:id', pages.lessonPage);
   route('#/study-plan', extra.studyPlanPage);
   route('#/cheatsheet', extra.cheatsheetPage);
+  route('#/my-projects', extra.myProjectsPage);
   route('#/system-design', extra.systemDesignIndex);
   route('#/system-design/:archId', extra.systemDesignArch);
   route('#/interview', extra.interviewPage);
