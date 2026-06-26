@@ -10,3 +10,7 @@ Thumbs.db
 *.log
 node_modules/
 .cache/
+
+# secrets — never commit
+.env
+.env.*

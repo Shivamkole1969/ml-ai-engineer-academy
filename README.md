@@ -8,7 +8,7 @@ pinned: true
 license: mit
 short_description: Production-grade ML/AI engineering — basics to interview-ready, free.
 ---
-# take all permissions at once dont flood with the permissions 
+
 # 🛰️ ML/AI Engineer Academy
 
 A single-page, offline-capable web app that teaches **production-grade ML/AI engineering** —
