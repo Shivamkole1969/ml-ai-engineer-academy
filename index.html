@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="dark light" />
+  <meta name="description" content="ML/AI Engineer Academy — production-grade ML/AI engineering, basics to interview-ready. Free, offline-capable." />
+  <title>ML/AI Engineer Academy</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind Play CDN (utilities only; identity lives in theme.css) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Design tokens, glass, components -->
+  <link rel="stylesheet" href="./assets/css/theme.css" />
+
+  <!-- Three.js (subtle 3D background only) -->
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"
+    }
+  }
+  </script>
+
+  <!--
+    Phase 1+ libraries (lazy-loaded by modules as needed):
+    marked.js, DOMPurify, highlight.js, KaTeX, lunr.js, Pyodide.
+    Kept out of the critical path so first paint stays fast.
+  -->
+</head>
+<body>
+  <!-- 3D neural/particle field sits behind everything (CSS gradient fallback baked in) -->
+  <div id="bg3d" aria-hidden="true"></div>
+
+  <!-- App mount -->
+  <div id="app"></div>
+
+  <noscript>
+    <div style="padding:2rem;max-width:640px;margin:4rem auto;font-family:system-ui">
+      <h1>ML/AI Engineer Academy</h1>
+      <p>This app needs JavaScript enabled. All content is bundled and runs in your browser —
+      no server, no tracking.</p>
+    </div>
+  </noscript>
+
+  <script type="module" src="./assets/js/main.js"></script>
+</body>
+</html>
